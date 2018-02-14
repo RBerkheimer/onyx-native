@@ -79,4 +79,41 @@ public class NativeBindUtils
 		Task methodTask = new Task(e);
 		return catalog.addTask(methodTask);
 	}
+
+    /**
+     * Creates and adds an object instance to an existing Catalog object.
+     * The object instance is derived from a user class which extends
+     * the NativeOnyxFn abstract class. To use this method, a name for the object
+     * must be provided, along with the fully qualified user base class,
+     * a map of arguments to use as constructor args for the class,
+     * the library name, initialization parameters,
+     * and the environment parameters batchSize and batchTimeout.
+     * @param  catalog       the catalog object to which the new object instance will be added as a task
+     * @param  taskName      a string to use as a name for the object instance task in the Catalog
+     * @param  batchSize     an integer describing the number of segments that will be read at a time
+     * @param  batchTimeout  an integer describing the longest amount of time (ms) that a task will wait before reading segments
+     * @param  fqClassName   a string naming the fully qualified user class to use in object instance creation
+     * @param  fqCtrClassName       a string naming the fully qualified constructor class used by the user class
+     * @param  ctrArgs       an IPersistentMap containing arguments to use in the user class constructor
+     * @param  libName   	a string naming the library to be loaded
+     * @param  initArgs       an IPersistentMap containing arguments to use when initializing the native library
+     * @return                returns the updated catalog which includes the added task
+     */
+
+    public static Catalog addFn(Catalog catalog, String taskName,
+                    int batchSize, int batchTimeout,
+                    String fqClassName, String fqCtrClassName, IPersistentMap ctrArgs,
+                    String libName, IPersistentMap initArgs)
+    {
+        IPersistentMap methodCat =
+              (IPersistentMap) nativeInstCatFn.invoke(taskName,
+                                        batchSize, batchTimeout,
+                                        fqClassName, fqCtrClassName, ctrArgs,
+                                libName, initArgs);
+
+        OnyxMap e = MapFns.toOnyxMap(methodCat);
+        Task methodTask = new Task(e);
+        return catalog.addTask(methodTask);
+    }
+
 }

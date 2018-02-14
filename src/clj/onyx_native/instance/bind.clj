@@ -7,15 +7,25 @@
 (defn native? [instance]
   (contains? instance :native-instance/lib-name))
 
-(defn instance [id fq-class-name ctr-class ctr-args lib-name init-args]
-  (let [i (b/instance id fq-class-name ctr-class ctr-args)]
+(defn instance
+    ([id fq-class-name ctr-args lib-name init-args]
+  (let [i (b/instance id fq-class-name ctr-args)]
     ; aggressive init as it is idempotent
     (.loadNativeResources i lib-name init-args)
     i))
+    ([id fq-class-name ctr-class ctr-args lib-name init-args]
+  (let [i (b/instance id fq-class-name ctr-class ctr-args)]
+    ; aggressive init as it is idempotent
+    (.loadNativeResources i lib-name init-args)
+    i)))
 
-(defn method [id fq-class-name ctr-class ctr-args lib-name init-args segment]
-  (let [inst-ifn (instance id fq-class-name ctr-class ctr-args lib-name init-args)]
+(defn method
+    ([id fq-class-name ctr-args lib-name init-args segment]
+  (let [inst-ifn (instance id fq-class-name ctr-args lib-name init-args)]
     (inst-ifn segment)))
+    ([id fq-class-name ctr-class ctr-args lib-name init-args segment]
+  (let [inst-ifn (instance id fq-class-name ctr-class ctr-args lib-name init-args)]
+    (inst-ifn segment))))
 
 (defn release [task]
   (let [id (b/task-id task)
