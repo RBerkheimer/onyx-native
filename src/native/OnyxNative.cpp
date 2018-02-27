@@ -49,7 +49,7 @@ void OnyxNative::checkAndThrow(std::string msg) {
 }
 
 // Accessors for runtime -----------------------
-// 
+//
 
 JNIEnv* OnyxNative::getEnv () {
 	return m_env;
@@ -89,10 +89,10 @@ jstring OnyxNative::toJavaString(std::string s) {
 
 
 // JNI Entry point, Bootstrapping -------------------------------------
-// 
+//
 
 jobject OnyxNative::init (jobject mapObj) {
-	
+
 	m_mapEmptyId = getMethod(m_mapClass, "emptyMap", "()Lclojure/lang/IPersistentMap;", true);
 	std::string msg = "OnyxNative::init> emptyMap failed )";
 	checkAndThrow(msg);
@@ -114,7 +114,7 @@ jobject OnyxNative::init (jobject mapObj) {
 	checkAndThrow(msg);
 
 	// Assoc in a success value?
-	
+
 	return mapObj;
 }
 
@@ -132,11 +132,11 @@ jobject OnyxNative::merge(jobject a, jobject b) {
 
 
 	// Get -------------------------
-	// 	
-	
+	//
+
 jobject OnyxNative::getObj(jobject ipmap, std::string key) {
 	jstring keyStr = toJavaString(key);
-	return m_env->CallStaticObjectMethod(m_mapClass, m_mapGetId, ipmap, keyStr); 
+	return m_env->CallStaticObjectMethod(m_mapClass, m_mapGetId, ipmap, keyStr);
 }
 
 int OnyxNative::getInt(jobject ipmap, std::string key) {
@@ -292,7 +292,7 @@ JNIEXPORT jobject JNICALL Java_org_onyxplatform_api_java_instance_NativeOnyxFn_i
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_onyxplatform_api_java_instance_NativeOnyxFn_releaseNative
-  (JNIEnv *env, jclass clazz) 
+  (JNIEnv *env, jclass clazz)
 {
 	delete g_onyx;
 	g_onyx = NULL;
@@ -359,7 +359,7 @@ JNIEXPORT jstring JNICALL onyx_toJavaString(const char* s) {
 
 // MapFns -------------------------------------------------
 //
-		
+
 JNIEXPORT jobject JNICALL onyx_emptyMap() {
 	if (g_onyx != NULL) {
 		return g_onyx->emptyMap();
@@ -368,7 +368,7 @@ JNIEXPORT jobject JNICALL onyx_emptyMap() {
 		return NULL;
 	}
 }
-		
+
 JNIEXPORT jobject JNICALL onyx_merge(jobject a, jobject b) {
 	if (g_onyx != NULL) {
 		return g_onyx->merge(a, b);
@@ -537,4 +537,3 @@ JNIEXPORT jobject 	JNICALL onyx_dissoc(jobject ipmap, const char* key) {
 		return NULL;
 	}
 }
-

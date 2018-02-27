@@ -10,7 +10,6 @@
           inputs [{:pass-through "PASSTHROUGH"}]
           expected {:out [{:pass-through "PASSTHROUGH"} :done]}
           outputs (.runJobCollectOutputs testObject inputs) ]
-      (.releaseAll testObject)
       (.shutdown testObject)
       (is (= expected outputs))))
 
@@ -22,7 +21,6 @@
           expected {:out [{} :done]}
           outputs (.runJobCollectOutputs testObject inputs) ]
      (println (System/getProperty "java.library.path"))
-      (.releaseAll testObject)
       (.shutdown testObject)
       (is (= expected outputs))))
 
@@ -33,7 +31,6 @@
           inputs [{:pass-through "PASSTHROUGH"}]
           expected {:out [{:pass-through "PASSTHROUGH" :test "A"} :done]}
           outputs (.runJobCollectOutputs testObject inputs) ]
-      (.releaseAll testObject)
       (.shutdown testObject)
       (is (= expected outputs))))
 
@@ -44,7 +41,6 @@
           inputs [{:dissoc "DISSOC"}]
           expected {:out [{} :done]}
           outputs (.runJobCollectOutputs testObject inputs) ]
-      (.releaseAll testObject)
       (.shutdown testObject)
       (is (= expected outputs))))
 
@@ -61,7 +57,6 @@
                            :str "TEST"} :done]}
           outputs (.runJobCollectOutputs testObject inputs) ]
       (println "assoc-map-test> outputs=" outputs)
-      (.releaseAll testObject)
       (.shutdown testObject)
       (is (= expected outputs))))
 
@@ -79,6 +74,5 @@
           expected {:out [{:passed true} :done]}
           outputs (.runJobCollectOutputs testObject inputs)]
       (println "assoc-map-test> outputs=" outputs)
-      (.releaseAll testObject)
       (.shutdown testObject)
       (is (= expected outputs))))

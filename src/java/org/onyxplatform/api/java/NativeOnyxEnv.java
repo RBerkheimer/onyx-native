@@ -1,6 +1,7 @@
 package org.onyxplatform.api.java;
 
 import clojure.lang.IPersistentMap;
+import org.onyxplatform.api.java.API;
 
 /**
  *  High level functionality and general utilities for environment control,
@@ -8,10 +9,10 @@ import clojure.lang.IPersistentMap;
  *  well as job control (starting, stopping, waiting), and garbage collection.
  *  NativeOnyxEnv should be used as an API utility/convenience class, that holds
  *  an OnyxEnv object for use in running jobs.
- *  
- * **Note** This class is to ensure that the assets necessary for 
+ *
+ * **Note** This class is to ensure that the assets necessary for
  * native loading are available at runtime.
- */ 
+ */
 public class NativeOnyxEnv extends OnyxEnv {
 
 	/**
@@ -31,7 +32,7 @@ public class NativeOnyxEnv extends OnyxEnv {
 	 * starting the environment upon creation.
 	 * @param  onyxEnvConfig (string) path to the EDN file containing environment spec
 	 * @param  startOnyx     boolean specifies whether the environment should start
-	 */ 
+	 */
 	public NativeOnyxEnv(String onyxEnvConfig, boolean startOnyx) {
 		super(onyxEnvConfig, startOnyx);
 	}
@@ -41,10 +42,10 @@ public class NativeOnyxEnv extends OnyxEnv {
  	* be started to successfully run the Job.
  	* @param  job           Job object to be run in the started OnyxEnv object
  	* @return     a map of the started job if successful
- 	*/ 
+ 	*/
  	public IPersistentMap submitJob(Job job) {
 		try {
-			return NAPI.submitJob(peerConfig, job);
+			return API.submitJob(peerConfig, job);
 		}
 		catch (Exception e) {
 			System.out.println("Submit job failed. Exception follows:");

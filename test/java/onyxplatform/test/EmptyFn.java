@@ -22,7 +22,7 @@ public class EmptyFn extends NativeOnyxFn {
 	protected native IPersistentMap createEmptyMap();
 
 	/**
-	 * Consumes an empty map, returns a 
+	 * Consumes an empty map, returns a
 	 * single key-value pair with an
 	 * empty map assoc'ed to :data
 	 * @param m The map to consume

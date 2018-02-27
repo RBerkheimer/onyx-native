@@ -10,6 +10,7 @@ import org.onyxplatform.api.java.NativeNames;
 import org.onyxplatform.api.java.Catalog;
 import org.onyxplatform.api.java.Task;
 import org.onyxplatform.api.java.Job;
+import org.onyxplatform.api.java.Lifecycle;
 
 import org.onyxplatform.api.java.utils.MapFns;
 
@@ -18,17 +19,12 @@ import org.onyxplatform.api.java.utils.MapFns;
  * which extend the OnyxFn abstract class which are backed by native
  * libraries.
  * This utility provides a method which can add an object instance that is
- * derived from a user class to a job catalog.
- * It also provides methods related to memory management of these catalog objects,
- * allowing users to manually unload the instances when they are no longer used
- * by the job.
+ * derived from a native user class to a job.
  */
-public class NativeBindUtils
-	extends BindUtils
-	implements OnyxNames, NativeNames
-{
+public class NativeBindUtils extends BindUtils implements OnyxNames, NativeNames {
 
-	protected static IFn nativeInstCatFn;
+	protected static IFn makeCatalogEntry;
+    protected static IFn makeLifecycleEntry;
 
 	/**
  	* Loads the clojure namespaces over-riding
@@ -38,11 +34,11 @@ public class NativeBindUtils
 		IFn requireFn = Clojure.var(CORE, Require);
 
 		requireFn.invoke(Clojure.read(NATIVE_CATALOG));
-		nativeInstCatFn = Clojure.var(NATIVE_CATALOG, NativeCreate);
+		makeCatalogEntry = Clojure.var(NATIVE_CATALOG, MakeNativeInstanceTask);
 
-		requireFn.invoke(Clojure.read(NATIVE_BIND));
-		releaseFn = Clojure.var(NATIVE_BIND, ReleaseInst);
-		releaseAllFn = Clojure.var(NATIVE_BIND, ReleaseAllInst);
+        requireFn.invoke(Clojure.read(NATIVE_LIFECYCLES));
+        makeLifecycleEntry = Clojure.var(NATIVE_CATALOG, MakeNativeInstanceLifecycle);
+
 	}
 
 	/**
@@ -64,20 +60,19 @@ public class NativeBindUtils
 	 * @return                returns the updated catalog which includes the added task
 	 */
 
-	public static Catalog addFn(Catalog catalog, String taskName,
-				    int batchSize, int batchTimeout,
-				    String fqClassName, IPersistentMap ctrArgs,
-				    String libName, IPersistentMap initArgs)
-	{
-		IPersistentMap methodCat =
-			  (IPersistentMap) nativeInstCatFn.invoke(taskName,
-					                    batchSize, batchTimeout,
-					                    fqClassName, ctrArgs,
-							    libName, initArgs);
-
-		OnyxMap e = MapFns.toOnyxMap(methodCat);
-		Task methodTask = new Task(e);
-		return catalog.addTask(methodTask);
+	public static void addFn(Job job, String taskName, int batchSize, int batchTimeout,
+				                String fqClassName, IPersistentMap ctrArgs,
+				                String libName, IPersistentMap initArgs) {
+        IPersistentMap rawTaskMap = (IPersistentMap) makeCatalogEntry.invoke(taskName, batchSize, batchTimeout,
+                                                                            fqClassName, ctrArgs,
+                                                                            libName, initArgs);
+        OnyxMap taskMap = MapFns.toOnyxMap(rawTaskMap);
+        Task task = new Task(taskMap);
+        job.getCatalog().addTask(task);
+        IPersistentMap rawLifecycleMap = (IPersistentMap) makeLifecycleEntry.invoke(taskName, "basic");
+        OnyxMap lifecycleMap = MapFns.toOnyxMap(rawLifecycleMap);
+        Lifecycle lifecycle = new Lifecycle(lifecycleMap);
+        job.getLifecycles().addLifecycle(lifecycle);
 	}
 
     /**
@@ -100,20 +95,19 @@ public class NativeBindUtils
      * @return                returns the updated catalog which includes the added task
      */
 
-    public static Catalog addFn(Catalog catalog, String taskName,
-                    int batchSize, int batchTimeout,
-                    String fqClassName, String fqCtrClassName, IPersistentMap ctrArgs,
-                    String libName, IPersistentMap initArgs)
-    {
-        IPersistentMap methodCat =
-              (IPersistentMap) nativeInstCatFn.invoke(taskName,
-                                        batchSize, batchTimeout,
-                                        fqClassName, fqCtrClassName, ctrArgs,
-                                libName, initArgs);
-
-        OnyxMap e = MapFns.toOnyxMap(methodCat);
-        Task methodTask = new Task(e);
-        return catalog.addTask(methodTask);
+    public static void addFn(Job job, String taskName, int batchSize, int batchTimeout,
+                             String fqClassName, String ctrClassName, IPersistentMap ctrArgs,
+                             String libName, IPersistentMap initArgs) {
+         IPersistentMap rawTaskMap = (IPersistentMap) makeCatalogEntry.invoke(taskName, batchSize, batchTimeout,
+                                                                             fqClassName, ctrClassName, ctrArgs,
+                                                                             libName, initArgs);
+         OnyxMap taskMap = MapFns.toOnyxMap(rawTaskMap);
+         Task task = new Task(taskMap);
+         job.getCatalog().addTask(task);
+         IPersistentMap rawLifecycleMap = (IPersistentMap) makeLifecycleEntry.invoke(taskName, "user");
+         OnyxMap lifecycleMap = MapFns.toOnyxMap(rawLifecycleMap);
+         Lifecycle lifecycle = new Lifecycle(lifecycleMap);
+         job.getLifecycles().addLifecycle(lifecycle);
     }
 
 }

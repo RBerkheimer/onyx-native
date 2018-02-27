@@ -45,8 +45,7 @@ public class SingleJavaTest extends JobBuilder {
      * Adds an Object instance of the test function to the Job catalog
      */
 	public void configureCatalog() {
-		Catalog c = job.getCatalog();
-		NativeBindUtils.addFn(c, "pass", batchSize(), batchTimeout(),
+		NativeBindUtils.addFn(job, "pass", batchSize(), batchTimeout(),
 				      className, MapFns.emptyMap(),
 				      libName, 	 MapFns.emptyMap());
 	}

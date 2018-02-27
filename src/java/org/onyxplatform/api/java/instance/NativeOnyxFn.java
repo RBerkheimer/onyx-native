@@ -8,9 +8,9 @@ import org.onyxplatform.api.java.instance.Loader;
 
 /**
  *  NativeOnyxFn is the base class for all User type classes that a User wishes
- *  to use as an object instance as a task within an Onyx workflow. 
+ *  to use as an object instance as a task within an Onyx workflow.
  *  User classes must extend this NativeOnyxFn, and implement the consumeSegment method.
- */  
+ */
 public abstract class NativeOnyxFn extends OnyxFn {
 
 	protected static String libraryName;
@@ -26,21 +26,21 @@ public abstract class NativeOnyxFn extends OnyxFn {
 	}
 
 	/**
- 	* Loads the native library. 
+ 	* Loads the native library.
 	* <p>
 	* This operation is per-instance and idempotent.
 	*
- 	* @param  libName The library name to load 
+ 	* @param  libName The library name to load
  	* @param  args The arguments to use during loading
  	* @return      The loading response map
  	*/
-	public IPersistentMap loadNativeResources(String libName, IPersistentMap args) 
+	public IPersistentMap loadNativeResources(String libName, IPersistentMap args)
 		throws java.lang.UnsatisfiedLinkError
 	{
 		if (!libLoaded) {
 			libraryName = libName;
 			System.loadLibrary(libName);
-			initArgs = initNative(this, args);	
+			initArgs = initNative(this, args);
 			libLoaded = true;
 		}
 		return initArgs;
