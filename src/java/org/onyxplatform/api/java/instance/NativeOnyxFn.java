@@ -11,7 +11,7 @@ import org.onyxplatform.api.java.instance.Loader;
  *  to use as an object instance as a task within an Onyx workflow.
  *  User classes must extend this NativeOnyxFn, and implement the consumeSegment method.
  */
-public abstract class NativeOnyxFn extends OnyxFn {
+public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
 
 	protected static String libraryName;
 	protected static boolean libLoaded = false;

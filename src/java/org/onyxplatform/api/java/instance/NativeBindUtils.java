@@ -12,6 +12,8 @@ import org.onyxplatform.api.java.Task;
 import org.onyxplatform.api.java.Job;
 import org.onyxplatform.api.java.Lifecycle;
 
+import org.onyxplatform.api.java.instance.INativeFn;
+
 import org.onyxplatform.api.java.utils.MapFns;
 
 /**
@@ -37,7 +39,7 @@ public class NativeBindUtils extends BindUtils implements OnyxNames, NativeNames
 		makeCatalogEntry = Clojure.var(NATIVE_CATALOG, MakeNativeInstanceTask);
 
         requireFn.invoke(Clojure.read(NATIVE_LIFECYCLES));
-        makeLifecycleEntry = Clojure.var(NATIVE_CATALOG, MakeNativeInstanceLifecycle);
+        makeLifecycleEntry = Clojure.var(NATIVE_LIFECYCLES, MakeNativeInstanceLifecycle);
 
 	}
 
@@ -94,20 +96,36 @@ public class NativeBindUtils extends BindUtils implements OnyxNames, NativeNames
      * @param  initArgs       an IPersistentMap containing arguments to use when initializing the native library
      * @return                returns the updated catalog which includes the added task
      */
-
     public static void addFn(Job job, String taskName, int batchSize, int batchTimeout,
                              String fqClassName, String ctrClassName, IPersistentMap ctrArgs,
                              String libName, IPersistentMap initArgs) {
+         System.out.println("Adding a function via native bind utils.");
          IPersistentMap rawTaskMap = (IPersistentMap) makeCatalogEntry.invoke(taskName, batchSize, batchTimeout,
                                                                              fqClassName, ctrClassName, ctrArgs,
                                                                              libName, initArgs);
+        System.out.println("Got a raw task map: " + rawTaskMap);
          OnyxMap taskMap = MapFns.toOnyxMap(rawTaskMap);
          Task task = new Task(taskMap);
          job.getCatalog().addTask(task);
+         System.out.println("Got a task map.");
          IPersistentMap rawLifecycleMap = (IPersistentMap) makeLifecycleEntry.invoke(taskName, "user");
+         System.out.println("Built the lifecycle map: " + rawLifecycleMap);
          OnyxMap lifecycleMap = MapFns.toOnyxMap(rawLifecycleMap);
          Lifecycle lifecycle = new Lifecycle(lifecycleMap);
          job.getLifecycles().addLifecycle(lifecycle);
+         System.out.println("Added all lifecycles to the job. ");
+    }
+
+    public static void loadFn(INativeFn nativeFn, String libName, IPersistentMap libArgs) {
+        System.out.println("static load function.");
+        IPersistentMap m = nativeFn.loadNativeResources(libName, libArgs);
+        System.out.println(m);
+    }
+
+    public void unloadFn(INativeFn nativeFn) {
+        System.out.println("Unloading static function.");
+        nativeFn.releaseNativeResources();
+        System.out.println("Releaded in static.");
     }
 
 }
