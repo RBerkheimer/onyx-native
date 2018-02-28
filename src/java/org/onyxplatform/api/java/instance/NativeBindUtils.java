@@ -116,16 +116,4 @@ public class NativeBindUtils extends BindUtils implements OnyxNames, NativeNames
          System.out.println("Added all lifecycles to the job. ");
     }
 
-    public static void loadFn(INativeFn nativeFn, String libName, IPersistentMap libArgs) {
-        System.out.println("static load function.");
-        IPersistentMap m = nativeFn.loadNativeResources(libName, libArgs);
-        System.out.println(m);
-    }
-
-    public void unloadFn(INativeFn nativeFn) {
-        System.out.println("Unloading static function.");
-        nativeFn.releaseNativeResources();
-        System.out.println("Releaded in static.");
-    }
-
 }
