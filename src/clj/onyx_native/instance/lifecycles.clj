@@ -4,27 +4,27 @@
   (:require [onyx-java.instance.lifecycles :as jlcs]
             [onyx-java.instance.bind :as jbind]))
 
- (defn add-instance [id fq-class-name ctr-name ctr-args]
+ (defn add-instance [id class-name ctr-name ctr-args]
      (let [loader (Loader.)
-            i (BindUtils/loadFn loader fq-class-name ctr-name ctr-args)]
-            (swap! jlcs/classloaders assoc id loader)
-            (swap! jlcs/instances assoc id i)
-            i))
+           instance (BindUtils/loadFn loader class-name ctr-name ctr-args)]
+        (swap! jlcs/classloaders assoc id loader)
+        (swap! jlcs/instances assoc id instance)
+        (jbind/get-instance id)))
 
 (defn before-native-task-ctr [event lifecycle]
     (let [k (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))
-            i (add-instance k
-                        (str (:java-instance/class (:onyx.core/task-map event)))
-                        (str (:java-instance/ctr (:onyx.core/task-map event)))
-                        (:java-instance/args (:onyx.core/task-map event)))]
-            (println "Loading native task!")
-            (.testme i)
-            ;(.loadNativeResources i (str (:native/lib-name (:onyx.core/task-map event))) (:native/init-args (:onyx.core/task-map event)))
-            (println i)
-            (println (str (:native/lib-name (:onyx.core/task-map event))))
-            (println (:native/init-args (:onyx.core/task-map event)))
-            (println "loaded native resources!")
-            {}))
+          class-name (str (:java-instance/class (:onyx.core/task-map event)))
+          ctr-name (str (:java-instance/ctr (:onyx.core/task-map event)))
+          ctr-args (:java-instance/args (:onyx.core/task-map event))
+          instance (add-instance k class-name ctr-name ctr-args)
+          native-lib (str (:native/lib-name (:onyx.core/task-map event)))
+          native-args (:native/init-args (:onyx.core/task-map event))]
+        (println "Loading native task!")
+        (println instance)
+        (.testme instance)
+        ;(.loadNativeResources instance native-lib native-args)
+        (println "loaded native resources!")
+        {}))
 
 (defn before-native-task-basic [event lifecycle]
     (let [classloader (Loader.)
