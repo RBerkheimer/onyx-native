@@ -34,15 +34,9 @@
 (defn after-native-task [event lifecycle]
     (if (contains? @jlcs/instances (jlcs/keyname (:java-instance/id (:onyx.core/task-map event))))
       (let [k (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))]
-        (println "releasing native!")
-        (println jlcs/classloaders)
-        (println jlcs/instances)
         (.releaseNativeResources (get @jlcs/instances k))
         (swap! jlcs/classloaders dissoc k)
         (swap! jlcs/instances dissoc k)
-        (println jlcs/classloaders)
-        (println jlcs/instances)
-        (println "returning!")
         {})))
 
 
