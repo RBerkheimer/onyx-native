@@ -3,7 +3,7 @@
             :url "https://github.com/onyx-platform/onyx-native"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [clj-stacktrace "0.2.8"]
-                 [zvs/onyx-java "0.1.5"] ]
+                 [zvs/onyx-java "0.1.6"] ]
   :source-paths ["src/clj" "test"]
   :java-source-paths ["src/java" "test/java"]
   :javac-options ["-target" "1.8" "-source" "1.8" "-Xlint:unchecked"]
