@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [onyx-native.instance.catalog :as ic]
             [onyx-native.instance.lifecycles :as lcs]
-            [onyx-java.instance.lifecycles :as jlcs])
+            [onyx-java.instance.lifecycles :as jlcs]
+            [onyx-native.instance.native-lib-utils as lib])
   (:import [org.onyxplatform.api.java
             API
             Catalog

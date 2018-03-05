@@ -1,11 +1,8 @@
 (ns onyx-native.instance.lifecycles
   (:gen-class)
-  (:require [onyx-java.instance.lifecycles :as jlcs]))
+  (:require [onyx-java.instance.lifecycles :as jlcs]
+            [onyx-native.instance.native-lib-utils :as lib]))
 
-(defn get-libs []
-    (-> (doto (.getDeclaredField ClassLoader "loadedLibraryNames")
-        (.setAccessible true))
-        (.get (ClassLoader/getSystemClassLoader))))
 
 (defn before-native-task-ctr [event lifecycle]
     (let [user-class (str (:java-instance/class (:onyx.core/task-map event)))
@@ -30,8 +27,9 @@
           native-args (:native/init-args (:onyx.core/task-map event))]
             (print "loading native resources for: ")
             (println user-class)
-            (println (get-libs))
-            (.loadNativeResources instance native-lib native-args)
+            (println (lib/get-loaded-libs))
+            (if-not (lib/is-lib-loaded native-lib)
+                (.loadNativeResources instance native-lib native-args))
             (print "loaded basic native resources for: ")
             (println user-class)
             (println (get-libs))
