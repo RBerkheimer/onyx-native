@@ -35,16 +35,14 @@ public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
  	* @param  args The arguments to use during loading
  	* @return      The loading response map
  	*/
-	public IPersistentMap loadNativeResources(String libName, IPersistentMap args)
-		throws java.lang.UnsatisfiedLinkError
-	{
+	public void loadNativeResources(String libName, IPersistentMap args)
+		throws java.lang.UnsatisfiedLinkError {
 		if (!libLoaded) {
 			libraryName = libName;
 			System.loadLibrary(libName);
 			initArgs = initNative(this, args);
 			libLoaded = true;
 		}
-		return initArgs;
 	}
 
 }

@@ -4,5 +4,5 @@ import clojure.lang.IPersistentMap;
 
 public interface INativeFn {
 
-    public IPersistentMap loadNativeResources(String libName, IPersistentMap args);
+    public void loadNativeResources(String libName, IPersistentMap args);
 }
