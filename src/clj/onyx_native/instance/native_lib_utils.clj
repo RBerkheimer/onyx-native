@@ -2,7 +2,8 @@
   (:gen-class))
 
 
-;(defn load-lib [lib-name lib-args])
+(defn load-lib [lib-name]
+    (System/loadLibrary lib-name))
 
 
 (defn get-loaded-libs []

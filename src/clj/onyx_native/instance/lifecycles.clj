@@ -1,7 +1,7 @@
 (ns onyx-native.instance.lifecycles
   (:gen-class)
   (:require [onyx-java.instance.lifecycles :as jlcs]
-            [onyx-native.instance.native-lib-utils :as lib]))
+            [onyx-native.instance.native-lib-utils :as native-lib]))
 
 
 (defn before-native-task-ctr [event lifecycle]
@@ -27,9 +27,10 @@
           native-args (:native/init-args (:onyx.core/task-map event))]
             (print "loading native resources for: ")
             (println user-class)
-            (println (lib/get-loaded-libs))
-            (if-not (lib/is-lib-loaded native-lib)
-                (.loadNativeResources instance native-lib native-args))
+            (println (native-lib/get-loaded-libs))
+            (if-not (native-lib/is-lib-loaded native-lib)
+                (native-lib/load-lib )
+                (println "native library already loaded."))
             (print "loaded basic native resources for: ")
             (println user-class)
             (println (get-libs))
