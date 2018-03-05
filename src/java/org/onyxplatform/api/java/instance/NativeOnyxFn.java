@@ -4,6 +4,7 @@ import clojure.lang.IPersistentMap;
 
 import org.onyxplatform.api.java.utils.MapFns;
 import org.onyxplatform.api.java.instance.Loader;
+import org.onyxplatform.api.java.API;
 
 
 /**
@@ -46,14 +47,4 @@ public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
 		return initArgs;
 	}
 
-	/**
- 	* Deletes the native resources associated
-	* with this instance.
- 	*/
-	public void releaseNativeResources() {
-		if (libLoaded) {
-			releaseNative();
-			libLoaded = false;
-		}
-	}
 }

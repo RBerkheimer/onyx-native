@@ -16,14 +16,14 @@ import org.onyxplatform.api.java.instance.NativeBindUtils;
  * JobBuilder base class, while the pure Java object instance function is
  * added within this method itself.
  */
-public class SingleJavaTest extends JobBuilder {
+public class NativeSingleJavaTest extends NativeJobBuilder {
 
-	public static final String PASS_FN = "onyxplatform.test.PassFn";
-	public static final String EMPTY_FN = "onyxplatform.test.EmptyFn";
-	public static final String MERGE_FN = "onyxplatform.test.MergeFn";
-	public static final String DISSOC_FN = "onyxplatform.test.DissocFn";
-	public static final String ASSOC_FN = "onyxplatform.test.AssocFn";
-	public static final String GET_FN = "onyxplatform.test.GetFn";
+	public static final String PASS_FN = "onyxplatform.test.NativePassFn";
+	public static final String EMPTY_FN = "onyxplatform.test.NativeEmptyFn";
+	public static final String MERGE_FN = "onyxplatform.test.NativeMergeFn";
+	public static final String DISSOC_FN = "onyxplatform.test.NativeDissocFn";
+	public static final String ASSOC_FN = "onyxplatform.test.NativeAssocFn";
+	public static final String GET_FN = "onyxplatform.test.NativeGetFn";
 
 	private String className;
 	private String libName;
@@ -35,7 +35,7 @@ public class SingleJavaTest extends JobBuilder {
      * @param  className The fully qualified class name to use
      * @param  libName The name of the backing library
      */
-	public SingleJavaTest(String onyxEnvConfig, String className, String libName) {
+	public NativeSingleJavaTest(String onyxEnvConfig, String className, String libName) {
 		super(onyxEnvConfig, 5, 50);
 		this.className = className;
 		this.libName = libName;
@@ -45,8 +45,8 @@ public class SingleJavaTest extends JobBuilder {
      * Adds an Object instance of the test function to the Job catalog
      */
 	public void configureCatalog() {
-		NativeBindUtils.addFn(job, "pass", batchSize(), batchTimeout(),
-				      className, MapFns.emptyMap(),
-				      libName, 	 MapFns.emptyMap());
+		NativeBindUtils.addFn(this.job, "pass", batchSize(), batchTimeout(),
+				      this.className, MapFns.emptyMap(),
+				      this.libName, 	 MapFns.emptyMap());
 	}
 }

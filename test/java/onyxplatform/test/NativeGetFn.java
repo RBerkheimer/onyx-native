@@ -3,16 +3,15 @@ package onyxplatform.test;
 import clojure.lang.IPersistentMap;
 
 import org.onyxplatform.api.java.instance.NativeOnyxFn;
-import org.onyxplatform.api.java.instance.OnyxFn;
 import org.onyxplatform.api.java.utils.MapFns;
 
 /**
  * GetFn is a simple test class extending NativeOnyxFn which is used to test
  * the get map functions.
  */
-public class GetFn extends NativeOnyxFn {
+public class NativeGetFn extends NativeOnyxFn {
 
-	public GetFn(IPersistentMap m) {
+	public NativeGetFn(IPersistentMap m) {
 		super(m);
 	}
 
@@ -91,12 +90,12 @@ public class GetFn extends NativeOnyxFn {
 	 * Returns a map containing:
 	 * {:passed true/false}
 	 * @param m The map to consume
-	 * @return an empty map or a map with ":passed false" 
+	 * @return an empty map or a map with ":passed false"
 	 */
 	public Object consumeSegment(IPersistentMap m) {
 
 		IPersistentMap result = MapFns.emptyMap();
-		IPersistentMap failed = MapFns.assoc(result, "passed", new Boolean(false));
+		IPersistentMap failed = MapFns.assoc(result, "passed", false);
 
 		IPersistentMap map = getObj(m, "object");
 		if (!MapFns.isEmpty(map)) {
@@ -138,6 +137,6 @@ public class GetFn extends NativeOnyxFn {
 			return failed;
 		}
 
-		return MapFns.assoc(result, "passed", new Boolean(true));
+		return MapFns.assoc(result, "passed", true);
 	}
 }

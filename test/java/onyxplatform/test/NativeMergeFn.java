@@ -3,7 +3,6 @@ package onyxplatform.test;
 import clojure.lang.IPersistentMap;
 
 import org.onyxplatform.api.java.instance.NativeOnyxFn;
-import org.onyxplatform.api.java.instance.OnyxFn;
 import org.onyxplatform.api.java.utils.MapFns;
 
 /**
@@ -11,16 +10,16 @@ import org.onyxplatform.api.java.utils.MapFns;
  * a pure java object instance task in an Onyx Job. This tests simple library
  * loading and unloading.
  */
-public class MergeFn extends NativeOnyxFn {
+public class NativeMergeFn extends NativeOnyxFn {
 
-	public MergeFn(IPersistentMap m) {
+	public NativeMergeFn(IPersistentMap m) {
 		super(m);
 	}
 
 	protected native IPersistentMap merge(IPersistentMap m1, IPersistentMap m2);
 
 	/**
-	 * Consumes a map with one value and 
+	 * Consumes a map with one value and
 	 * merges a map the key-value pair:
 	 *  :test "A"
 	 */

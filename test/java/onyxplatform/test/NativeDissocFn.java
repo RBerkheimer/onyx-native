@@ -3,15 +3,14 @@ package onyxplatform.test;
 import clojure.lang.IPersistentMap;
 
 import org.onyxplatform.api.java.instance.NativeOnyxFn;
-import org.onyxplatform.api.java.instance.OnyxFn;
 
 /**
  * DissocFn is a simple test class extending NativeOnyxFn which is used to test
  * the native dissoc functionality.
  */
-public class DissocFn extends NativeOnyxFn {
+public class NativeDissocFn extends NativeOnyxFn {
 
-	public DissocFn(IPersistentMap m) {
+	public NativeDissocFn(IPersistentMap m) {
 		super(m);
 	}
 
@@ -25,7 +24,7 @@ public class DissocFn extends NativeOnyxFn {
 
 	/**
 	 * Consumes a map with a single key-value pair
-	 * of :dissoc "DISSOC" 
+	 * of :dissoc "DISSOC"
 	 * @param m the map to consume
 	 * @return an empty map
 	 */

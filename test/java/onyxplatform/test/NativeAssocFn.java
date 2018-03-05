@@ -3,16 +3,15 @@ package onyxplatform.test;
 import clojure.lang.IPersistentMap;
 
 import org.onyxplatform.api.java.instance.NativeOnyxFn;
-import org.onyxplatform.api.java.instance.OnyxFn;
 import org.onyxplatform.api.java.utils.MapFns;
 
 /**
  * Assoc is a simple test class extending NativeOnyxFn which is used to test
- * the native assoc functionality in an Onyx Job. 
+ * the native assoc functionality in an Onyx Job.
  */
-public class AssocFn extends NativeOnyxFn {
+public class NativeAssocFn extends NativeOnyxFn {
 
-	public AssocFn(IPersistentMap m) {
+	public NativeAssocFn(IPersistentMap m) {
 		super(m);
 	}
 
@@ -72,7 +71,7 @@ public class AssocFn extends NativeOnyxFn {
 
 	/**
 	 * Consumes an empty map and associates
-	 * a key-value pair for each native 
+	 * a key-value pair for each native
 	 * type returning:
 	 *
 	 * {:object {}

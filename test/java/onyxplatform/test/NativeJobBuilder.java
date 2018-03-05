@@ -23,11 +23,11 @@ import org.onyxplatform.api.java.instance.NativeBindUtils;
  * should add the test function. JobBuilder provides simple methods for running
  * the assembled job and gathering outputs.
  */
-public abstract class JobBuilder {
+public abstract class NativeJobBuilder {
 
     protected NativeOnyxEnv onyxEnv;
-    protected Integer batchSize;
-    protected Integer batchTimeout;
+    protected int batchSize;
+    protected int batchTimeout;
     protected Job job;
 
     /**
@@ -37,13 +37,13 @@ public abstract class JobBuilder {
      * @param  batchSize     integer representing the number of segments tasks should consume at once
      * @param  batchTimeout  integer representing the maximum time (ms) a task should wait before beginning
      */
-    public JobBuilder(String onyxEnvConfig, int batchSize, int batchTimeout) {
+    public NativeJobBuilder(String onyxEnvConfig, int batchSize, int batchTimeout) {
 
 	    onyxEnv = new NativeOnyxEnv("onyx-env.edn", true);
 
-	    this.batchSize = new Integer(batchSize);
-	    this.batchTimeout = new Integer(batchTimeout);
-	    job = createBaseJob();
+	    this.batchSize = batchSize;
+	    this.batchTimeout = batchTimeout;
+	    this.job = createBaseJob();
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class JobBuilder {
 	//
 
 
-	job = new Job(onyxEnv.taskScheduler());
+	Job job = new Job(onyxEnv.taskScheduler());
 
 	job.addWorkflowEdge("in", "pass");
 	job.addWorkflowEdge("pass", "out");
@@ -137,7 +137,8 @@ public abstract class JobBuilder {
      */
     public IPersistentMap runJobCollectOutputs(PersistentVector inputs) {
 	    IPersistentMap jmeta = runJob(inputs);
-	    return AsyncLifecycles.collectOutputs(job.getLifecycles(), "out");
+	    IPersistentMap outputs = AsyncLifecycles.collectOutputs(job, "out");
+        return outputs;
     }
 
 

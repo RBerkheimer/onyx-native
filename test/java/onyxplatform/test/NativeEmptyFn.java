@@ -3,15 +3,14 @@ package onyxplatform.test;
 import clojure.lang.IPersistentMap;
 
 import org.onyxplatform.api.java.instance.NativeOnyxFn;
-import org.onyxplatform.api.java.instance.OnyxFn;
 
 /**
  * EmptyFn is a simple test class extending NativeOnyxFn which is used to test
  * creating an empty map.
  */
-public class EmptyFn extends NativeOnyxFn {
+public class NativeEmptyFn extends NativeOnyxFn {
 
-	public EmptyFn(IPersistentMap m) {
+	public NativeEmptyFn(IPersistentMap m) {
 		super(m);
 	}
 

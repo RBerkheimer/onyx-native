@@ -1,27 +1,29 @@
 #include <jni.h>
 
 #include "OnyxNative.h"
-#include "onyxplatform_test_EmptyFn.h"
-#include "onyxplatform_test_MergeFn.h"
-#include "onyxplatform_test_AssocFn.h"
+#include "onyxplatform_test_NativeEmptyFn.h"
+#include "onyxplatform_test_NativeMergeFn.h"
+#include "onyxplatform_test_NativeAssocFn.h"
+#include "onyxplatform_test_NativeDissocFn.h"
+#include "onyxplatform_test_NativeGetFn.h"
 
 /*
- * Class:     onyxplatform_test_EmptyFn
+ * Class:     onyxplatform_test_NativeEmptyFn
  * Method:    createEmptyMap
  * Signature: ()Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_EmptyFn_createEmptyMap
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeEmptyFn_createEmptyMap
   (JNIEnv *env, jobject obj)
 {
 	return onyx_emptyMap();
 }
 
 /*
- * Class:     onyxplatform_test_MergeFn
+ * Class:     onyxplatform_test_NativeMergeFn
  * Method:    mergeSimple
  * Signature: (Lclojure/lang/IPersistentMap;Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_MergeFn_merge
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeMergeFn_merge
   (JNIEnv *env, jobject inst, jobject m1, jobject m2)
 {
 	return onyx_merge(m1, m2);
@@ -29,11 +31,11 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_MergeFn_merge
 
 
 /*
- * Class:     onyxplatform_test_DissocFn
+ * Class:     onyxplatform_test_NativeDissocFn
  * Method:    dissoc
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_DissocFn_dissoc
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeDissocFn_dissoc
   (JNIEnv *env, jobject inst, jobject m, jstring key)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -43,14 +45,14 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_DissocFn_dissoc
 }
 
 
-/** AssocFn ---------------------------------------- */
+/** NativeAssocFn ---------------------------------------- */
 
 /*
- * Class:     onyxplatform_test_AssocFn
+ * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocObj
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocObj
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
   (JNIEnv *env, jobject inst, jobject m, jstring key, jobject obj)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -60,11 +62,11 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocObj
 }
 
 /*
- * Class:     onyxplatform_test_AssocFn
+ * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocInt
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;I)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocInt
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
   (JNIEnv *env, jobject inst, jobject m, jstring key, jint i)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -74,11 +76,11 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocInt
 }
 
 /*
- * Class:     onyxplatform_test_AssocFn
+ * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocFloat
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;F)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocFloat
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
   (JNIEnv *env, jobject inst, jobject m, jstring key, jfloat f)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -88,11 +90,11 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocFloat
 }
 
 /*
- * Class:     onyxplatform_test_AssocFn
+ * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocDouble
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;D)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocDouble
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
   (JNIEnv *env, jobject inst, jobject m, jstring key, jdouble d)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -103,11 +105,11 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocDouble
 
 
 /*
- * Class:     onyxplatform_test_AssocFn
+ * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocBool
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Z)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocBool
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
   (JNIEnv *env, jobject inst, jobject m, jstring key, jboolean b)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -117,11 +119,11 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocBool
 }
 
 /*
- * Class:     onyxplatform_test_AssocFn
+ * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocStr
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocStr
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
   (JNIEnv *env, jobject inst, jobject m, jstring key, jstring s)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -133,14 +135,14 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_AssocFn_assocStr
 }
 
 
-/** GetFn ----------------------------------------- */
+/** NativeGetFn ----------------------------------------- */
 
 /*
- * Class:     onyxplatform_test_GetFn
+ * Class:     onyxplatform_test_NativeGetFn
  * Method:    getObj
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_GetFn_getObj
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getObj
   (JNIEnv *env, jobject inst, jobject m, jstring key)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -150,11 +152,11 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_GetFn_getObj
 }
 
 /*
- * Class:     onyxplatform_test_GetFn
+ * Class:     onyxplatform_test_NativeGetFn
  * Method:    getInt
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_onyxplatform_test_GetFn_getInt
+JNIEXPORT jint JNICALL Java_onyxplatform_test_NativeGetFn_getInt
   (JNIEnv *env, jobject inst, jobject m, jstring key)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -164,11 +166,11 @@ JNIEXPORT jint JNICALL Java_onyxplatform_test_GetFn_getInt
 }
 
 /*
- * Class:     onyxplatform_test_GetFn
+ * Class:     onyxplatform_test_NativeGetFn
  * Method:    getFloat
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)F
  */
-JNIEXPORT jfloat JNICALL Java_onyxplatform_test_GetFn_getFloat
+JNIEXPORT jfloat JNICALL Java_onyxplatform_test_NativeGetFn_getFloat
   (JNIEnv *env, jobject inst, jobject m, jstring key)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -178,11 +180,11 @@ JNIEXPORT jfloat JNICALL Java_onyxplatform_test_GetFn_getFloat
 }
 
 /*
- * Class:     onyxplatform_test_GetFn
+ * Class:     onyxplatform_test_NativeGetFn
  * Method:    getDouble
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)D
  */
-JNIEXPORT jdouble JNICALL Java_onyxplatform_test_GetFn_getDouble
+JNIEXPORT jdouble JNICALL Java_onyxplatform_test_NativeGetFn_getDouble
   (JNIEnv *env, jobject inst, jobject m, jstring key)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -192,11 +194,11 @@ JNIEXPORT jdouble JNICALL Java_onyxplatform_test_GetFn_getDouble
 }
 
 /*
- * Class:     onyxplatform_test_GetFn
+ * Class:     onyxplatform_test_NativeGetFn
  * Method:    getLong
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)J
  */
-JNIEXPORT jlong JNICALL Java_onyxplatform_test_GetFn_getLong
+JNIEXPORT jlong JNICALL Java_onyxplatform_test_NativeGetFn_getLong
   (JNIEnv *env, jobject inst, jobject m, jstring key)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -206,11 +208,11 @@ JNIEXPORT jlong JNICALL Java_onyxplatform_test_GetFn_getLong
 }
 
 /*
- * Class:     onyxplatform_test_GetFn
+ * Class:     onyxplatform_test_NativeGetFn
  * Method:    getBool
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_onyxplatform_test_GetFn_getBool
+JNIEXPORT jboolean JNICALL Java_onyxplatform_test_NativeGetFn_getBool
   (JNIEnv *env, jobject inst, jobject m, jstring key)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);
@@ -220,11 +222,11 @@ JNIEXPORT jboolean JNICALL Java_onyxplatform_test_GetFn_getBool
 }
 
 /*
- * Class:     onyxplatform_test_GetFn
+ * Class:     onyxplatform_test_NativeGetFn
  * Method:    getStr
  * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_onyxplatform_test_GetFn_getStr
+JNIEXPORT jstring JNICALL Java_onyxplatform_test_NativeGetFn_getStr
   (JNIEnv *env, jobject inst, jobject m, jstring key)
 {
 	const char *k = (*env)->GetStringUTFChars(env, key, 0);

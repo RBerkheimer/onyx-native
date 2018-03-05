@@ -99,21 +99,16 @@ public class NativeBindUtils extends BindUtils implements OnyxNames, NativeNames
     public static void addFn(Job job, String taskName, int batchSize, int batchTimeout,
                              String fqClassName, String ctrClassName, IPersistentMap ctrArgs,
                              String libName, IPersistentMap initArgs) {
-         System.out.println("Adding a function via native bind utils.");
          IPersistentMap rawTaskMap = (IPersistentMap) makeCatalogEntry.invoke(taskName, batchSize, batchTimeout,
                                                                              fqClassName, ctrClassName, ctrArgs,
                                                                              libName, initArgs);
-        System.out.println("Got a raw task map: " + rawTaskMap);
          OnyxMap taskMap = MapFns.toOnyxMap(rawTaskMap);
          Task task = new Task(taskMap);
          job.getCatalog().addTask(task);
-         System.out.println("Got a task map.");
          IPersistentMap rawLifecycleMap = (IPersistentMap) makeLifecycleEntry.invoke(taskName, "user");
-         System.out.println("Built the lifecycle map: " + rawLifecycleMap);
          OnyxMap lifecycleMap = MapFns.toOnyxMap(rawLifecycleMap);
          Lifecycle lifecycle = new Lifecycle(lifecycleMap);
          job.getLifecycles().addLifecycle(lifecycle);
-         System.out.println("Added all lifecycles to the job. ");
     }
 
 }
