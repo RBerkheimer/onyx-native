@@ -17,7 +17,7 @@ class OnyxNative {
 		OnyxNative(JNIEnv *env, jobject obj);
 		~OnyxNative();
 
-		jobject init(jobject mapObj);
+		void init(jobject mapObj);
 
 
 		// JNI --------------------------
@@ -144,7 +144,7 @@ JNIEXPORT jstring 	JNICALL onyx_getStr(jobject ipmap, const char* key);
 // Assoc
 
 /**
-* NOTE: This does NOT preserve precision. 
+* NOTE: This does NOT preserve precision.
 *       adding 2.2 to the map, for example will
 *       return a value of 2.200000047683716
 */
