@@ -129,6 +129,7 @@ clean:
 	echo "Cleaning up."
 	echo ""
 	-cd $(TARGETPATH) && rm *.h
+	-cd $(TARGETPATH) && rm *.hpp
 	-cd $(TARGETPATH) && rm *.o
 	-cd $(TARGETPATH) && rm *.mod
 	-cd $(TARGETPATH) && rm *.jnilib
