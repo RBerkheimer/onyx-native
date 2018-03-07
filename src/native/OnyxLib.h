@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 typedef OnyxNative * OnyxLib;
-OnyxLib onyxlib_new(JNIEnv *, jobject, jobject);
+OnyxLib onyxlib_new(JNIEnv *, jobject);
 void    onyxlib_free(OnyxLib);
 void    onyxlib_errorcheck(OnyxLib, const char*);
 JNIEnv* onyxlib_getenv(OnyxLib);

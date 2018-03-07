@@ -19,7 +19,6 @@ public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
 	protected static IPersistentMap initArgs;
 
 	protected static native IPersistentMap initNative(Object inst, IPersistentMap m);
-	protected static native void releaseNative();
 
 
 	public NativeOnyxFn(IPersistentMap m) {
@@ -40,7 +39,7 @@ public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
 		if (!libLoaded) {
 			libraryName = libName;
 			System.loadLibrary(libName);
-			initArgs = initNative(this, args);
+			//initArgs = initNative(this, args);
 			libLoaded = true;
 		}
 	}

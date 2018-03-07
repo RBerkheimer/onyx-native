@@ -7,9 +7,9 @@ using namespace std;
 
 extern "C"
 {
-    OnyxLib onyxlib_new(JNIEnv *env, jobject jobj, jobject jmap) {
+    OnyxLib onyxlib_new(JNIEnv *env, jobject jobj) {
         onyx_native = new OnyxNative(env, jobj);
-        onyx_native->init(jmap);
+        onyx_native->init();
         return onyx_native;
     }
 

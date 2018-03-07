@@ -89,7 +89,7 @@ jstring OnyxNative::toJavaString(std::string s) {
 // JNI Entry point, Bootstrapping -------------------------------------
 //
 
-void OnyxNative::init (jobject mapObj) {
+void OnyxNative::init() {
 
 	m_mapEmptyId = getMethod(m_mapClass, "emptyMap", "()Lclojure/lang/IPersistentMap;", true);
 	std::string msg = "OnyxNative::init> emptyMap failed )";

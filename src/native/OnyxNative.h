@@ -17,7 +17,7 @@ class OnyxNative {
 		OnyxNative(JNIEnv *env, jobject obj);
 		~OnyxNative();
 
-		void init(jobject mapObj);
+		void init();
 
 
 		// JNI --------------------------
@@ -98,64 +98,7 @@ class OnyxNative {
 
 extern "C" {
 
-OnyxNative *g_onyx;
-
 #endif
-
-// Runtime accessors
-//
-
-JNIEXPORT JNIEnv* JNICALL onyx_getJNIEnv();
-JNIEXPORT jclass  JNICALL onyx_getClass(const char* pFqClassName);
-JNIEXPORT jobject JNICALL onyx_getInstance();
-
-/**
-* NOTE: jmethodID's have full runtime scope and can be re-used.
-*/
-JNIEXPORT jmethodID JNICALL onyx_getMethod(const char* clazz, const char* name, const char* decl, bool isStatic);
-
-JNIEXPORT jstring JNICALL onyx_toJavaString(const char* s);
-
-
-// MapFns -----------------------------------------------------
-//
-
-JNIEXPORT jobject 	JNICALL onyx_emptyMap();
-JNIEXPORT jobject 	JNICALL onyx_merge(jobject a, jobject b);
-JNIEXPORT jobject 	JNICALL onyx_dissoc(jobject ipmap, const char* key);
-
-// Get ---------------
-
-/**
-* NOTE: This does NOT preserve precision.
-*       adding 2.2 to the map, for example will
-*       return a value of 2.200000047683716
-*/
-JNIEXPORT double 	JNICALL onyx_getDouble(jobject ipmap, const char* key);
-
-JNIEXPORT jobject 	JNICALL onyx_getObj(jobject ipmap, const char* key);
-JNIEXPORT int 		JNICALL onyx_getInt(jobject ipmap, const char* key);
-JNIEXPORT long 		JNICALL onyx_getLong(jobject ipmap, const char* key);
-JNIEXPORT float 	JNICALL onyx_getFloat(jobject ipmap, const char* key);
-JNIEXPORT bool 		JNICALL onyx_getBool(jobject ipmap, const char* key);
-JNIEXPORT jstring 	JNICALL onyx_getStr(jobject ipmap, const char* key);
-
-
-// Assoc
-
-/**
-* NOTE: This does NOT preserve precision.
-*       adding 2.2 to the map, for example will
-*       return a value of 2.200000047683716
-*/
-JNIEXPORT jobject 	JNICALL onyx_assocDouble(jobject ipmap, const char* key, double value);
-
-JNIEXPORT jobject 	JNICALL onyx_assocObj(jobject ipmap, const char* key, jobject value);
-JNIEXPORT jobject 	JNICALL onyx_assocInt(jobject ipmap, const char* key, int value);
-JNIEXPORT jobject 	JNICALL onyx_assocLong(jobject ipmap, const char* key, long value);
-JNIEXPORT jobject 	JNICALL onyx_assocFloat(jobject ipmap, const char* key, float value);
-JNIEXPORT jobject 	JNICALL onyx_assocBool(jobject ipmap, const char* key, bool value);
-JNIEXPORT jobject 	JNICALL onyx_assocStr(jobject ipmap, const char* key, const char* value);
 
 #ifdef __cplusplus
 }
