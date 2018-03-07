@@ -7,7 +7,7 @@ struct OnyxNative
     jclass getClass(std::string);
     jmethodID getMethod(jclass, std::string, std::string, bool);
     jstring toJavaString(std::string);
-    void init(jobject);
+    void init();
     jobject emptyMap();
     jobject merge(jobject, jobject);
     jobject getObj(jobject, std::string);

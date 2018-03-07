@@ -8,7 +8,7 @@ using namespace std;
 extern "C"
 {
     OnyxLib onyxlib_new(JNIEnv *env, jobject jobj) {
-        onyx_native = new OnyxNative(env, jobj);
+        OnyxLib onyx_native = new OnyxNative(env, jobj);
         onyx_native->init();
         return onyx_native;
     }
@@ -43,7 +43,7 @@ extern "C"
         std::string mname = method;
         std::string sdecl = decl;
 
-        clazz = onyx_lib->getClass(cname);
+        jclass clazz = onyx_lib->getClass(cname);
         return onyx_lib->getMethod(clazz, mname, sdecl, is_static);
     }
 
@@ -131,7 +131,7 @@ extern "C"
         return onyx_lib->assocStr(jmap, k, str);
     }
 
-    jobject onyxlib_dissoc(OnyxLib onyx_lib, const char* jkey) {
+    jobject onyxlib_dissoc(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
         std::string k = jkey;
         return onyx_lib->dissoc(jmap, k);
     }

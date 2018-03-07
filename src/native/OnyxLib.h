@@ -1,10 +1,11 @@
 struct OnyxNative;
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef OnyxNative * OnyxLib;
+typedef struct OnyxNative * OnyxLib;
 OnyxLib onyxlib_new(JNIEnv *, jobject);
 void    onyxlib_free(OnyxLib);
 void    onyxlib_errorcheck(OnyxLib, const char*);
@@ -29,7 +30,7 @@ jobject onyxlib_assocfloat(OnyxLib, jobject, const char*, float);
 jobject onyxlib_assocdouble(OnyxLib, jobject, const char*, double);
 jobject onyxlib_assocbool(OnyxLib, jobject, const char*, bool);
 jobject onyxlib_assocstr(OnyxLib, jobject, const char*, const char*);
-jobject onyxlib_dissoc(OnyxLib, const char*);
+jobject onyxlib_dissoc(OnyxLib, jobject, const char*);
 
 #ifdef __cplusplus
 }
