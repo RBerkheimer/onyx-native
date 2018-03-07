@@ -16,22 +16,6 @@
         true
         false))
 
-(defn is-lib-loaded [native-lib]
-  (let [loaded-libs (get-loaded-libs)
-        check-lib (get-lib-name native-lib)]
-          (println "check lib: " check-lib)
-          (check-substr check-lib loaded-libs)))
-
-(defn get-lib-name [native-lib]
-    (let [os (get-os)]
-        (println "os: " os)
-        (case
-            "win" nil
-            "osx" (clojure.string/join ["lib" native-lib ".jnilib"])
-            "unix" (clojure.string/join ["lib" native-lib ".so"])
-            "solaris" (clojure.string/join ["lib" native-lib ".so"])
-            nil)))
-
 (defn categorize-os [os-name]
     (cond
         (.indexOf os-name "win") "win"
@@ -45,3 +29,20 @@
 (defn get-os []
     (let [os-name (.toLowerCase (System/getProperty "os.name"))]
         (categorize-os os-name)))
+
+
+(defn get-lib-name [native-lib]
+    (let [os (get-os)]
+        (println "os: " os)
+        (case
+            "win" nil
+            "osx" (clojure.string/join ["lib" native-lib ".jnilib"])
+            "unix" (clojure.string/join ["lib" native-lib ".so"])
+            "solaris" (clojure.string/join ["lib" native-lib ".so"])
+            nil)))
+
+(defn is-lib-loaded [native-lib]
+  (let [loaded-libs (get-loaded-libs)
+        check-lib (get-lib-name native-lib)]
+          (println "check lib: " check-lib)
+          (check-substr check-lib loaded-libs)))
