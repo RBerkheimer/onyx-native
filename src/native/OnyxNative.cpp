@@ -3,7 +3,6 @@
 using namespace std;
 
 #include <jni.h>
-#include "OnyxNative.h"
 
 /** Class encapsulating the runtime back pointer, affordances
  * for accessing utilities that live in Java-land.

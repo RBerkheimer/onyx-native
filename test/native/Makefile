@@ -53,7 +53,7 @@ FF=gfortran
 #The following vars contain strings representing common libraries used by all code
 #at a project level. These should generally not be touched by users.
 COMMONC=
-COMMONCPP=OnyxNative.cpp
+COMMONCPP=OnyxNative.cpp OnyxLib.cpp
 COMMONFORTRAN=
 
 
