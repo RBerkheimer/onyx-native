@@ -18,28 +18,29 @@
 
 (defn categorize-os [os-name]
     (cond
-        (.indexOf os-name "win") "win"
-        (.indexOf os-name "mac") "osx"
-        (.indexOf os-name "nix") "unix"
-        (.indexOf os-name "nux") "unix"
-        (.indexOf os-name "aix") "unix"
-        (.indexOf os-name "sunos") "solaris"
+        (clojure.string/includes? os-name "win") "win"
+        (clojure.string/includes? os-name "mac") "osx"
+        (clojure.string/includes? os-name "nix") "unix"
+        (clojure.string/includes? os-name "nux") "unix"
+        (clojure.string/includes? os-name "aix") "unix"
+        (clojure.string/includes? os-name "sunos") "solaris"
         :else "unix"))
 
 (defn get-os []
     (let [os-name (.toLowerCase (System/getProperty "os.name"))]
+        (println os-name)
         (categorize-os os-name)))
 
 
 (defn get-lib-name [native-lib]
     (let [os (get-os)]
         (println "os: " os)
-        (case
+        (case os
             "win" nil
             "osx" (clojure.string/join ["lib" native-lib ".jnilib"])
             "unix" (clojure.string/join ["lib" native-lib ".so"])
             "solaris" (clojure.string/join ["lib" native-lib ".so"])
-            nil)))
+            "nil")))
 
 (defn is-lib-loaded [native-lib]
   (let [loaded-libs (get-loaded-libs)
