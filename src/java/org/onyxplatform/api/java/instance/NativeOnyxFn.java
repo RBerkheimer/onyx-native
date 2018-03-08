@@ -41,6 +41,7 @@ public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
 			System.loadLibrary(libName);
 			//initArgs = initNative(this, args);
 			libLoaded = true;
+            System.out.println("Lib loaded!");
 		}
 	}
 

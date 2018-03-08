@@ -93,6 +93,8 @@ public class NativeGetFn extends NativeOnyxFn {
 	 * @return an empty map or a map with ":passed false"
 	 */
 	public Object consumeSegment(IPersistentMap m) {
+        System.out.println("consuming!!!");
+        System.out.println(m);
 
 		IPersistentMap result = MapFns.emptyMap();
 		IPersistentMap failed = MapFns.assoc(result, "passed", false);

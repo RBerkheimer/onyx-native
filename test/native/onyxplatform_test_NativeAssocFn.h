@@ -10,50 +10,50 @@ extern "C" {
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocObj
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
-  (JNIEnv *, jobject, jobject, jstring, jobject);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocInt
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;I)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
-  (JNIEnv *, jobject, jobject, jstring, jint);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocFloat
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;F)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
-  (JNIEnv *, jobject, jobject, jstring, jfloat);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocDouble
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;D)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
-  (JNIEnv *, jobject, jobject, jstring, jdouble);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocBool
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Z)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
-  (JNIEnv *, jobject, jobject, jstring, jboolean);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocStr
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
-  (JNIEnv *, jobject, jobject, jstring, jstring);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

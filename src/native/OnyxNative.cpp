@@ -14,11 +14,10 @@ using namespace std;
 
 OnyxNative::OnyxNative (JNIEnv *env, jobject obj) {
 
-	m_env = env;
+    printf("OnyxNative constructor!\n");
 
-	// Hold on to the object as a global
-	// reference for use with callbacks
-	//
+    m_env = env;
+
 	m_instObj = (jobject) env->NewGlobalRef(obj);
 
 	jclass mc = env->FindClass("org/onyxplatform/api/java/utils/MapFns");
@@ -26,14 +25,14 @@ OnyxNative::OnyxNative (JNIEnv *env, jobject obj) {
 
 	std::string msg = "OnyxNative::OnyxNative> failed to find MapFns";
 	checkAndThrow(msg);
+    printf("Finished construction!\n");
 }
 
 OnyxNative::~OnyxNative () {
+    printf("Inside OnyxNative destructor!\n");
 	m_env->DeleteGlobalRef(m_instObj);
 	m_env->DeleteGlobalRef(m_mapClass);
-	m_instObj = NULL;
-	m_mapClass = NULL;
-	m_env = NULL;
+    printf("Finished Destruction!\n");
 }
 
 // Utils ---------------------------------------

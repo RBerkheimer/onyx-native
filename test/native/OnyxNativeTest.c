@@ -54,94 +54,89 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeDissocFn_dissoc
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocObj
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
-  (JNIEnv *env, jobject inst, jobject m, jstring key, jobject obj) {
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
+  (JNIEnv *env, jobject inst, jobject m) {
+      printf("obj!\n");
       OnyxLib olib = onyxlib_new(env, inst);
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
-      jobject result = onyxlib_assocobj(olib, m, k, obj);
-      (*env)->ReleaseStringUTFChars(env, key, k);
+      //jobject obj = onyxlib_emptymap(olib);
+      //onyxlib_assocobj(olib, m, "object", obj);
       onyxlib_free(olib);
-      return result;
 }
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocInt
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;I)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
-  (JNIEnv *env, jobject inst, jobject m, jstring key, jint i) {
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
+  (JNIEnv *env, jobject inst, jobject m) {
+      printf("int!\n");
       OnyxLib olib = onyxlib_new(env, inst);
-      jobject result = onyxlib_assocint(olib, m, k, i);
-      (*env)->ReleaseStringUTFChars(env, key, k);
+      //m = onyxlib_assocint(olib, m, "int", 1);
       onyxlib_free(olib);
-      return result;
 }
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocFloat
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;F)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
-  (JNIEnv *env, jobject inst, jobject m, jstring key, jfloat f) {
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
+  (JNIEnv *env, jobject inst, jobject m) {
+      printf("float!\n");
       OnyxLib olib = onyxlib_new(env, inst);
-      jobject result = onyxlib_assocfloat(olib, m, k, f);
-      (*env)->ReleaseStringUTFChars(env, key, k);
+      //m = onyxlib_assocfloat(olib, m, "float", 1.1);
       onyxlib_free(olib);
-      return result;
 }
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocDouble
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;D)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
-  (JNIEnv *env, jobject inst, jobject m, jstring key, jdouble d) {
-	const char *k = (*env)->GetStringUTFChars(env, key, 0);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
+  (JNIEnv *env, jobject inst, jobject m) {
+	/*const char *k = (*env)->GetStringUTFChars(env, key, 0);
     OnyxLib olib = onyxlib_new(env, inst);
 	jobject result = onyxlib_assocdouble(olib, m, k, d);
 	(*env)->ReleaseStringUTFChars(env, key, k);
     onyxlib_free(olib);
-	return result;
+	return result;*/
 }
 
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocBool
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Z)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
-  (JNIEnv *env, jobject inst, jobject m, jstring key, jboolean b) {
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
+  (JNIEnv *env, jobject inst, jobject m) {
+      /*const char *k = (*env)->GetStringUTFChars(env, key, 0);
       OnyxLib olib = onyxlib_new(env, inst);
       jobject result = onyxlib_assocbool(olib, m, k, b);
       (*env)->ReleaseStringUTFChars(env, key, k);
       onyxlib_free(olib);
-      return result;
+      return result;*/
 }
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocStr
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)V
  */
-JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
-  (JNIEnv *env, jobject inst, jobject m, jstring key, jstring s) {
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
+JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
+  (JNIEnv *env, jobject inst, jobject m) {
+      /*const char *k = (*env)->GetStringUTFChars(env, key, 0);
       const char *str = (*env)->GetStringUTFChars(env, s, 0);
       OnyxLib olib = onyxlib_new(env, inst);
       jobject result = onyxlib_assocstr(olib, m, k, str);
       (*env)->ReleaseStringUTFChars(env, key, k);
       (*env)->ReleaseStringUTFChars(env, s, str);
       onyxlib_free(olib);
-      return result;
+      return result;*/
 }
 
 

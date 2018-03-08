@@ -20,54 +20,48 @@ public class NativeAssocFn extends NativeOnyxFn {
 	* @param m The coll
 	* @param key The keyword
 	* @param o The object value to assoc to the coll
-	* @return The map with the value assoc'ed
  	*/
-	protected native IPersistentMap assocObj(IPersistentMap m, String key, Object o);
+	protected native void assocObj(IPersistentMap m);
 
 	/**
  	* Calls the native assocInt implementation
 	* @param m The coll
 	* @param key The keyword
 	* @param v The int value to assoc to the coll
-	* @return The map with the value assoc'ed
  	*/
-	protected native IPersistentMap assocInt(IPersistentMap m, String key, int v);
+	protected native void assocInt(IPersistentMap m);
 
 	/**
  	* Calls the native assocFloat implementation
 	* @param m The coll
 	* @param key The keyword
 	* @param f The float value to assoc to the coll
-	* @return The map with the value assoc'ed
  	*/
-	protected native IPersistentMap assocFloat(IPersistentMap m, String key, float f);
+	protected native void assocFloat(IPersistentMap m);
 
 	/**
  	* Calls the native assocDouble implementation
 	* @param m The coll
 	* @param key The keyword
 	* @param d The double value to assoc to the coll
-	* @return The map with the value assoc'ed
  	*/
-	protected native IPersistentMap assocDouble(IPersistentMap m, String key, double d);
+	protected native void assocDouble(IPersistentMap m);
 
 	/**
  	* Calls the native assocBool implementation
 	* @param m The coll
 	* @param key The keyword
 	* @param b The boolean value to assoc to the coll
-	* @return The map with the value assoc'ed
  	*/
-	protected native IPersistentMap assocBool(IPersistentMap m, String key, boolean b);
+	protected native void assocBool(IPersistentMap m);
 
 	/**
  	* Calls the native assocStr implementation
 	* @param m The coll
 	* @param key The keyword
 	* @param s The String to assoc to the coll
-	* @return The map with the value assoc'ed
  	*/
-	protected native IPersistentMap assocStr(IPersistentMap m, String key, String s);
+	protected native void assocStr(IPersistentMap m);
 
 	/**
 	 * Consumes an empty map and associates
@@ -85,23 +79,18 @@ public class NativeAssocFn extends NativeOnyxFn {
 	* @return The map with the assoc'ed values
 	 */
 	public Object consumeSegment(IPersistentMap m) {
-
-		IPersistentMap em = MapFns.emptyMap();
-		IPersistentMap am = assocObj(m, "object", em);
-
-		int i = 1;
-		am = assocInt(am, "int", i);
-
-		float f = 1.1f;
-		am = assocFloat(am, "float", f);
-
-		double d = 2.2d;
-		am = assocDouble(am, "double", d);
-
-		boolean b = true;
-		am = assocBool(am, "bool", b);
-
-		String s = "TEST";
-		return assocStr(am, "str", s);
+        //associates object = {}
+		assocObj(m);
+        //associates int = 1
+        assocInt(m);
+        //associates float = 1.1f
+        assocFloat(m);
+        //associates double = 2.2d
+        //assocDouble(m);
+        //associates bool = true
+        //assocBool(m);
+        //associates str = 'TEST'
+        //assocStr(m);
+        return m;
 	}
 }

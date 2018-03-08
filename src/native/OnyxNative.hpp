@@ -1,6 +1,7 @@
 struct OnyxNative
 {
     OnyxNative(JNIEnv*, jobject);
+    ~OnyxNative();
     void checkAndThrow(std::string);
     JNIEnv* getEnv();
     jobject getInstance();

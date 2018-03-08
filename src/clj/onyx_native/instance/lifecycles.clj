@@ -13,10 +13,11 @@
           instance-key (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))
           native-lib (str (:native/lib-name (:onyx.core/task-map event)))
           native-args (:native/init-args (:onyx.core/task-map event))]
-          (if-not (native-lib/is-lib-loaded native-lib)
-              (native-lib/load-lib instance native-lib native-args))
-          (swap! jlcs/instances assoc instance-key instance)
-          {}))
+            (if-not (native-lib/is-lib-loaded native-lib)
+                (native-lib/load-lib instance native-lib)
+                (println "native lib already loaded!"))
+            (swap! jlcs/instances assoc instance-key instance)
+            {}))
 
 (defn before-native-task-basic [event lifecycle]
     (let [user-class (str (:java-instance/class (:onyx.core/task-map event)))
@@ -27,7 +28,8 @@
           native-lib (str (:native/lib-name (:onyx.core/task-map event)))
           native-args (:native/init-args (:onyx.core/task-map event))]
             (if-not (native-lib/is-lib-loaded native-lib)
-                (native-lib/load-lib instance native-lib native-args))
+                (native-lib/load-lib instance native-lib)
+                (println "native lib already loaded!"))
             (swap! jlcs/instances assoc instance-key instance)
             {}))
 

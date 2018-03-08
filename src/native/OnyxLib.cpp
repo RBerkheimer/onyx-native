@@ -9,13 +9,14 @@ extern "C"
 {
     OnyxLib onyxlib_new(JNIEnv *env, jobject jobj) {
         OnyxLib onyx_native = new OnyxNative(env, jobj);
+        printf("inside onyxlib_new!\n");
         onyx_native->init();
+        printf("finished init!\n");
         return onyx_native;
     }
 
     void onyxlib_free(OnyxLib onyx_lib) {
         delete onyx_lib;
-        onyx_lib = NULL;
     }
 
     void onyxlib_errorcheck(OnyxLib onyx_lib, const char* message){

@@ -2,8 +2,8 @@
   (:gen-class))
 
 
-(defn load-lib [instance lib-name lib-args]
-    (.loadNativeResources instance lib-name lib-args))
+(defn load-lib [instance lib-name]
+    (.loadNativeResources instance lib-name {}))
 
 (defn get-loaded-libs []
   (-> (doto (.getDeclaredField ClassLoader "loadedLibraryNames")
