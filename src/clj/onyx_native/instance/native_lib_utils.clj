@@ -2,9 +2,8 @@
   (:gen-class))
 
 
-(defn load-lib [lib-name]
-    (System/loadLibrary lib-name))
-
+(defn load-lib [instance lib-name lib-args]
+    (.loadNativeResources instance lib-name lib-args))
 
 (defn get-loaded-libs []
   (-> (doto (.getDeclaredField ClassLoader "loadedLibraryNames")
@@ -28,13 +27,10 @@
 
 (defn get-os []
     (let [os-name (.toLowerCase (System/getProperty "os.name"))]
-        (println os-name)
         (categorize-os os-name)))
-
 
 (defn get-lib-name [native-lib]
     (let [os (get-os)]
-        (println "os: " os)
         (case os
             "win" nil
             "osx" (clojure.string/join ["lib" native-lib ".jnilib"])
@@ -45,5 +41,4 @@
 (defn is-lib-loaded [native-lib]
   (let [loaded-libs (get-loaded-libs)
         check-lib (get-lib-name native-lib)]
-          (println "check lib: " check-lib)
           (check-substr check-lib loaded-libs)))

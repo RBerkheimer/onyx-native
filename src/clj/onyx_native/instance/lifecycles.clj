@@ -13,9 +13,10 @@
           instance-key (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))
           native-lib (str (:native/lib-name (:onyx.core/task-map event)))
           native-args (:native/init-args (:onyx.core/task-map event))]
-            (.loadNativeResources instance native-lib native-args)
-            (swap! jlcs/instances assoc instance-key instance)
-            {}))
+          (if-not (native-lib/is-lib-loaded native-lib)
+              (native-lib/load-lib instance native-lib native-args))
+          (swap! jlcs/instances assoc instance-key instance)
+          {}))
 
 (defn before-native-task-basic [event lifecycle]
     (let [user-class (str (:java-instance/class (:onyx.core/task-map event)))
@@ -25,20 +26,9 @@
           instance-key (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))
           native-lib (str (:native/lib-name (:onyx.core/task-map event)))
           native-args (:native/init-args (:onyx.core/task-map event))]
-            (print "loading native resources for: ")
-            (println user-class)
-            (println (native-lib/get-loaded-libs))
             (if-not (native-lib/is-lib-loaded native-lib)
-                (native-lib/load-lib )
-                (println "native library already loaded."))
-            (print "loaded basic native resources for: ")
-            (println user-class)
-            (println (get-libs))
-            (print "holding reference to: ")
-            (println user-class)
+                (native-lib/load-lib instance native-lib native-args))
             (swap! jlcs/instances assoc instance-key instance)
-            (print "held reference to: ")
-            (println user-class)
             {}))
 
 (defn after-native-task [event lifecycle]
@@ -46,9 +36,8 @@
           instance (get @jlcs/instances instance-key)
           user-class (str (:java-instance/class (:onyx.core/task-map event)))]
           (swap! jlcs/instances dissoc instance-key)
-          (print "removed held reference to: ")
-          (println user-class)
           {}))
+
 (def ctr-instance-calls
     {:lifecycle/before-task-start before-native-task-ctr
     :lifecycle/after-task-stop after-native-task})
