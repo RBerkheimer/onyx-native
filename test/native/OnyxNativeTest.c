@@ -65,6 +65,7 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
       jobject r = onyxlib_testcalc(olib, k);
       //onyxlib_assocobj(olib, m, "object", obj);
       onyxlib_free(olib);
+      return r;
 }
 
 /*
@@ -80,6 +81,7 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
       jobject r = onyxlib_testcalc(olib, k);
       //m = onyxlib_assocint(olib, m, "int", 1);
       onyxlib_free(olib);
+      return r;
 }
 
 /*
@@ -95,6 +97,7 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
       jobject r = onyxlib_testcalc(olib, k);
       //m = onyxlib_assocfloat(olib, m, "float", 1.1);
       onyxlib_free(olib);
+      return r;
 }
 
 /*

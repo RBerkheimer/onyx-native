@@ -21,7 +21,7 @@ public class NativeAssocFn extends NativeOnyxFn {
 	* @param key The keyword
 	* @param o The object value to assoc to the coll
  	*/
-	protected native void assocObj(IPersistentMap m);
+	protected native IPersistentMap assocObj(IPersistentMap m);
 
 	/**
  	* Calls the native assocInt implementation
@@ -29,7 +29,7 @@ public class NativeAssocFn extends NativeOnyxFn {
 	* @param key The keyword
 	* @param v The int value to assoc to the coll
  	*/
-	protected native void assocInt(IPersistentMap m);
+	protected native IPersistentMap assocInt(IPersistentMap m);
 
 	/**
  	* Calls the native assocFloat implementation
@@ -37,7 +37,7 @@ public class NativeAssocFn extends NativeOnyxFn {
 	* @param key The keyword
 	* @param f The float value to assoc to the coll
  	*/
-	protected native void assocFloat(IPersistentMap m);
+	protected native IPersistentMap assocFloat(IPersistentMap m);
 
 	/**
  	* Calls the native assocDouble implementation
@@ -80,11 +80,11 @@ public class NativeAssocFn extends NativeOnyxFn {
 	 */
 	public Object consumeSegment(IPersistentMap m) {
         //associates object = {}
-		assocObj(m);
+		IPersistentMap r = assocObj(m);
         //associates int = 1
-        assocInt(m);
+        IPersistentMap s = assocInt(m);
         //associates float = 1.1f
-        assocFloat(m);
+        IPersistentMap t = assocFloat(m);
         //associates double = 2.2d
         //assocDouble(m);
         //associates bool = true

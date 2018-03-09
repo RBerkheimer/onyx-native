@@ -10,25 +10,25 @@ extern "C" {
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocObj
- * Signature: (Lclojure/lang/IPersistentMap;)V
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
   (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocInt
- * Signature: (Lclojure/lang/IPersistentMap;)V
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
   (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocFloat
- * Signature: (Lclojure/lang/IPersistentMap;)V
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
   (JNIEnv *, jobject, jobject);
 
 /*
