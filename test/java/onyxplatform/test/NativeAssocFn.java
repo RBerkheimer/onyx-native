@@ -80,11 +80,11 @@ public class NativeAssocFn extends NativeOnyxFn {
 	 */
 	public Object consumeSegment(IPersistentMap m) {
         //associates object = {}
-		IPersistentMap r = assocObj(m);
+		m = assocObj(m);
         //associates int = 1
-        IPersistentMap s = assocInt(m);
+        m = assocInt(m);
         //associates float = 1.1f
-        IPersistentMap t = assocFloat(m);
+        m = assocFloat(m);
         //associates double = 2.2d
         //assocDouble(m);
         //associates bool = true

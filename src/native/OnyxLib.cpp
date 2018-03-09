@@ -15,8 +15,8 @@ extern "C"
         return onyx_native;
     }
 
-    jobject onyxlib_testcalc(OnyxLib onyxlib, const char* key) {
-        return onyxlib->testCalc(key);
+    jobject onyxlib_testcalc(OnyxLib onyxlib, const char* key, jobject jmap) {
+        return onyxlib->testCalc(key, jmap);
     }
 
     void onyxlib_test(const char* teststr) {

@@ -43,14 +43,14 @@ void OnyxNative::checkAndThrow(std::string msg) {
 	}
 }
 
-jobject OnyxNative::testCalc(const char* key) {
+jobject OnyxNative::testCalc(const char* key, jobject jmap) {
     jstring test = m_env->NewStringUTF(key);
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapEmptyId = getMethod(mc, "emptyMap", "()Lclojure/lang/IPersistentMap;", true);
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject emptyMap1 = m_env->CallStaticObjectMethod(mc, m_mapEmptyId);
     jobject emptyMap2 = m_env->CallStaticObjectMethod(mc, m_mapEmptyId);
-    jobject map3 = m_env->CallStaticObjectMethod(mc, m_mapAssocId, emptyMap1, test, emptyMap2);
+    jobject map3 = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, test, emptyMap1);
 
     int a;
     /* for loop execution */
