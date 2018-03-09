@@ -4,6 +4,8 @@ struct OnyxNative
     ~OnyxNative();
     void checkAndThrow(std::string);
     jobject testCalc(const char*, jobject);
+    jobject testIntCalc(const char*, jobject, int);
+    jobject testFloatCalc(const char*, jobject, float);
     JNIEnv* getEnv();
     jclass getClass(std::string);
     jmethodID getMethod(jclass, std::string, std::string, bool);

@@ -8,6 +8,8 @@ typedef struct OnyxNative * OnyxLib;
 OnyxLib onyxlib_new(JNIEnv *);
 void onyxlib_test(const char*);
 jobject onyxlib_testcalc(OnyxLib, const char*, jobject);
+jobject onyxlib_testintcalc(OnyxLib, const char*, jobject, int);
+jobject onyxlib_testfloatcalc(OnyxLib, const char*, jobject, float);
 void    onyxlib_free(OnyxLib);
 void    onyxlib_errorcheck(OnyxLib, const char*);
 JNIEnv* onyxlib_getenv(OnyxLib);

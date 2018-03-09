@@ -10,14 +10,21 @@ extern "C"
     OnyxLib onyxlib_new(JNIEnv *env) {
         OnyxLib onyx_native = new OnyxNative(env);
         printf("inside onyxlib_new!\n");
-        //onyx_native->init();
-        printf("finished init!\n");
         return onyx_native;
     }
 
     jobject onyxlib_testcalc(OnyxLib onyxlib, const char* key, jobject jmap) {
         return onyxlib->testCalc(key, jmap);
     }
+
+    jobject onyxlib_testintcalc(OnyxLib onyxlib, const char* key, jobject jmap, int i) {
+        return onyxlib->testIntCalc(key, jmap, i);
+    }
+
+    jobject onyxlib_testfloatcalc(OnyxLib onyxlib, const char* key, jobject jmap, float f) {
+        return onyxlib->testFloatCalc(key, jmap, f);
+    }
+
 
     void onyxlib_test(const char* teststr) {
         std::string k = teststr;

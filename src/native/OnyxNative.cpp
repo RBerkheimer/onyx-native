@@ -60,6 +60,46 @@ jobject OnyxNative::testCalc(const char* key, jobject jmap) {
     return map3;
 }
 
+jobject OnyxNative::testIntCalc(const char* key, jobject jmap, int i) {
+    jstring intKey = m_env->NewStringUTF(key);
+
+    jclass intClass = getClass("java/lang/Integer");
+	jmethodID intMethodId =  m_env->GetMethodID(intClass, "<init>", "(I)V");
+	jobject intObject = m_env->NewObject(intClass, intMethodId, (jint) i);
+
+    jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
+    jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
+    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, intKey, intObject);
+
+    int a;
+    /* for loop execution */
+    for( a = 10; a < 20; a = a + 1 ){
+        printf("its a %s: %d\n", key, a);
+    }
+    return updatedMap;
+}
+
+jobject OnyxNative::testFloatCalc(const char* key, jobject jmap, float f) {
+    jstring floatKey = m_env->NewStringUTF(key);
+
+    jclass floatClass = getClass("java/lang/Float");
+	jmethodID floatMethodId =  m_env->GetMethodID(floatClass, "<init>", "(F)V");
+	jobject floatObject = m_env->NewObject(floatClass, floatMethodId, (jfloat) f);
+
+    jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
+    jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
+    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, floatKey, floatObject);
+
+    int a;
+    /* for loop execution */
+    for( a = 10; a < 20; a = a + 1 ){
+        printf("its a %s: %d\n", key, a);
+    }
+    return updatedMap;
+}
+
+
+
 // Accessors for runtime -----------------------
 //
 

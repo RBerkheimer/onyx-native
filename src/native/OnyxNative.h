@@ -20,6 +20,8 @@ class OnyxNative {
 		void init();
 
         jobject testCalc(const char*, jobject);
+        jobject testIntCalc(const char*, jobject, int);
+        jobject testFloatCalc(const char*, jobject, float);
 
 
 		// JNI --------------------------
