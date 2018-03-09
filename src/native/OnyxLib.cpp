@@ -7,12 +7,21 @@ using namespace std;
 
 extern "C"
 {
-    OnyxLib onyxlib_new(JNIEnv *env, jobject jobj) {
-        OnyxLib onyx_native = new OnyxNative(env, jobj);
+    OnyxLib onyxlib_new(JNIEnv *env) {
+        OnyxLib onyx_native = new OnyxNative(env);
         printf("inside onyxlib_new!\n");
-        onyx_native->init();
+        //onyx_native->init();
         printf("finished init!\n");
         return onyx_native;
+    }
+
+    void onyxlib_testcalc(OnyxLib onyxlib, const char* key) {
+        onyxlib->testCalc(key);
+    }
+
+    void onyxlib_test(const char* teststr) {
+        std::string k = teststr;
+        printf("%s\n", teststr);
     }
 
     void onyxlib_free(OnyxLib onyx_lib) {
@@ -26,10 +35,6 @@ extern "C"
 
     JNIEnv* onyxlib_getenv(OnyxLib onyx_lib) {
         return onyx_lib->getEnv();
-    }
-
-    jobject onyxlib_getinstance(OnyxLib onyx_lib) {
-        return onyx_lib->getInstance();
     }
 
     jclass onyxlib_getclass(OnyxLib onyx_lib, const char* classname) {

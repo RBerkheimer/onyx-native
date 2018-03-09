@@ -12,13 +12,11 @@ using namespace std;
 // Cnstr/Destr ----------------------------------
 //
 
-OnyxNative::OnyxNative (JNIEnv *env, jobject obj) {
+OnyxNative::OnyxNative (JNIEnv *env) {
 
     printf("OnyxNative constructor!\n");
 
     m_env = env;
-
-	m_instObj = (jobject) env->NewGlobalRef(obj);
 
 	jclass mc = env->FindClass("org/onyxplatform/api/java/utils/MapFns");
 	m_mapClass = (jclass) env->NewGlobalRef(mc);
@@ -30,7 +28,6 @@ OnyxNative::OnyxNative (JNIEnv *env, jobject obj) {
 
 OnyxNative::~OnyxNative () {
     printf("Inside OnyxNative destructor!\n");
-	m_env->DeleteGlobalRef(m_instObj);
 	m_env->DeleteGlobalRef(m_mapClass);
     printf("Finished Destruction!\n");
 }
@@ -46,15 +43,19 @@ void OnyxNative::checkAndThrow(std::string msg) {
 	}
 }
 
+void OnyxNative::testCalc(const char* key) {
+    int a;
+    /* for loop execution */
+    for( a = 10; a < 20; a = a + 1 ){
+        printf("its a %s: %d\n", key, a);
+    }
+}
+
 // Accessors for runtime -----------------------
 //
 
 JNIEnv* OnyxNative::getEnv() {
 	return m_env;
-}
-
-jobject OnyxNative::getInstance() {
-	return m_instObj;
 }
 
 jclass OnyxNative::getClass(std::string className) {

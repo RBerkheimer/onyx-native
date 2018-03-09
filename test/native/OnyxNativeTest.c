@@ -59,12 +59,12 @@
  */
 JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
   (JNIEnv *env, jobject inst, jobject m) {
-      printf("obj!\n");
-      //OnyxLib olib = onyxlib_new(env, inst);
-      //jobject obj = onyxlib_emptymap(olib);
+      const char *k = "obj";
+      printf("%s!\n", k);
+      OnyxLib olib = onyxlib_new(env);
+      onyxlib_testcalc(olib, k);
       //onyxlib_assocobj(olib, m, "object", obj);
-      //onyxlib_free(olib);
-      //return m;
+      onyxlib_free(olib);
 }
 
 /*
@@ -74,10 +74,12 @@ JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
  */
 JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
   (JNIEnv *env, jobject inst, jobject m) {
-      printf("int!\n");
-      //OnyxLib olib = onyxlib_new(env, inst);
+      const char *k = "int";
+      printf("%s!\n", k);
+      OnyxLib olib = onyxlib_new(env);
+      onyxlib_testcalc(olib, k);
       //m = onyxlib_assocint(olib, m, "int", 1);
-      //onyxlib_free(olib);
+      onyxlib_free(olib);
 }
 
 /*
@@ -87,10 +89,12 @@ JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
  */
 JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
   (JNIEnv *env, jobject inst, jobject m) {
-      printf("float!\n");
-      //OnyxLib olib = onyxlib_new(env, inst);
+      const char *k = "float";
+      printf("%s!\n", k);
+      OnyxLib olib = onyxlib_new(env);
+      onyxlib_testcalc(olib, k);
       //m = onyxlib_assocfloat(olib, m, "float", 1.1);
-      //onyxlib_free(olib);
+      onyxlib_free(olib);
 }
 
 /*

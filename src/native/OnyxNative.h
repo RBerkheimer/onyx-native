@@ -14,21 +14,18 @@ using namespace std;
 class OnyxNative {
 
 	public:
-		OnyxNative(JNIEnv *env, jobject obj);
+		OnyxNative(JNIEnv *env);
 		~OnyxNative();
 
 		void init();
+
+        void testCalc(const char*);
 
 
 		// JNI --------------------------
 		//
 
 		JNIEnv* getEnv();
-
-		/**
-		 * The instance bound to this library
-		 */
-		jobject  getInstance();
 
 		/**
 		 * NOTE: All JNI objects are scoped to its calling context.
@@ -85,7 +82,6 @@ class OnyxNative {
 
 	private:
 		JNIEnv* m_env;
-		jobject m_instObj;
 
 		// Map utilities
 		jclass    m_mapClass;

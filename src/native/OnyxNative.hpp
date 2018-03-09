@@ -1,10 +1,10 @@
 struct OnyxNative
 {
-    OnyxNative(JNIEnv*, jobject);
+    OnyxNative(JNIEnv*);
     ~OnyxNative();
     void checkAndThrow(std::string);
+    void testCalc(const char*);
     JNIEnv* getEnv();
-    jobject getInstance();
     jclass getClass(std::string);
     jmethodID getMethod(jclass, std::string, std::string, bool);
     jstring toJavaString(std::string);
