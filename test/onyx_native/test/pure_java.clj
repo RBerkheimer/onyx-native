@@ -36,6 +36,23 @@
 (.shutdown testObject)
 (is (= expected outputs))))
 
+(deftest assoc-map-test-2
+  (let [testObject (NativeSingleJavaTest.
+                 "onyx-env.edn"
+                 NativeSingleJavaTest/ASSOC_FN "OnyxNativeTest")
+    inputs [{}]
+    expected {:out [{:object {}
+                     :int 1
+                     :float (float 1.1)
+                     :double (double 2.2)
+                     :bool true
+                     :str "TEST"} :done]}
+    outputs (.runJobCollectOutputs testObject inputs) ]
+(println "assoc-map-test2> outputs=" outputs)
+(.shutdown testObject)
+(is (= expected outputs))))
+
+
 (comment (deftest pass-java-test
     (let [testObject (NativeSingleJavaTest.
                        "onyx-env.edn"
