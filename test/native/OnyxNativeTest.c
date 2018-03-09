@@ -62,8 +62,8 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
       const char *k = "object";
       printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject emptyMap = onyxlib_testnewmap(olib);
-      jobject r = onyxlib_testobjcalc(olib, k, m, emptyMap);
+      jobject emptyMap = onyxlib_emptymap(olib);
+      jobject r = onyxlib_assocobj(olib, k, m, emptyMap);
       onyxlib_free(olib);
       return r;
 }
@@ -79,7 +79,7 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
       int i = 1;
       printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_testintcalc(olib, k, m, i);
+      jobject r = onyxlib_assocint(olib, k, m, i);
       onyxlib_free(olib);
       return r;
 }
@@ -95,7 +95,7 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
       float f = 1.1;
       printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_testfloatcalc(olib, k, m, f);
+      jobject r = onyxlib_assocfloat(olib, k, m, f);
       onyxlib_free(olib);
       return r;
 }
@@ -111,7 +111,7 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
       double d = 2.2;
       printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_testdoublecalc(olib, k, m, d);
+      jobject r = onyxlib_assocdouble(olib, k, m, d);
       onyxlib_free(olib);
       return r;
 }
@@ -128,7 +128,7 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
       bool b = true;
       printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_testboolcalc(olib, k, m, b);
+      jobject r = onyxlib_assocbool(olib, k, m, b);
       onyxlib_free(olib);
       return r;
 }
@@ -144,7 +144,7 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
       const char *s = "TEST";
       printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_teststrcalc(olib, k, m, s);
+      jobject r = onyxlib_assocstr(olib, k, m, s);
       onyxlib_free(olib);
       return r;
 }

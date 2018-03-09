@@ -43,14 +43,14 @@ void OnyxNative::checkAndThrow(std::string msg) {
 	}
 }
 
-jobject OnyxNative::testNewMap() {
+jobject OnyxNative::emptyMap() {
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapEmptyId = getMethod(mc, "emptyMap", "()Lclojure/lang/IPersistentMap;", true);
     jobject emptyMap = m_env->CallStaticObjectMethod(mc, m_mapEmptyId);
     return emptyMap;
 }
 
-jobject OnyxNative::testObjCalc(const char* key, jobject jmap, jobject jobj) {
+jobject OnyxNative::assocObj(const char* key, jobject jmap, jobject jobj) {
     jstring test = m_env->NewStringUTF(key);
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
@@ -64,7 +64,7 @@ jobject OnyxNative::testObjCalc(const char* key, jobject jmap, jobject jobj) {
     return updatedMap;
 }
 
-jobject OnyxNative::testIntCalc(const char* key, jobject jmap, int i) {
+jobject OnyxNative::assocInt(const char* key, jobject jmap, int i) {
     jstring intKey = m_env->NewStringUTF(key);
 
     jclass intClass = getClass("java/lang/Integer");
@@ -83,7 +83,7 @@ jobject OnyxNative::testIntCalc(const char* key, jobject jmap, int i) {
     return updatedMap;
 }
 
-jobject OnyxNative::testFloatCalc(const char* key, jobject jmap, float f) {
+jobject OnyxNative::assocFloat(const char* key, jobject jmap, float f) {
     jstring floatKey = m_env->NewStringUTF(key);
 
     jclass floatClass = getClass("java/lang/Float");
@@ -102,7 +102,7 @@ jobject OnyxNative::testFloatCalc(const char* key, jobject jmap, float f) {
     return updatedMap;
 }
 
-jobject OnyxNative::testDoubleCalc(const char* key, jobject jmap, double d) {
+jobject OnyxNative::assocDouble(const char* key, jobject jmap, double d) {
     jstring doubleKey = m_env->NewStringUTF(key);
 
     jclass doubleClass = getClass("java/lang/Double");
@@ -122,7 +122,7 @@ jobject OnyxNative::testDoubleCalc(const char* key, jobject jmap, double d) {
 }
 
 
-jobject OnyxNative::testBoolCalc(const char* key, jobject jmap, bool b) {
+jobject OnyxNative::assocBool(const char* key, jobject jmap, bool b) {
     jstring boolKey = m_env->NewStringUTF(key);
 
     jclass boolClass = getClass("java/lang/Boolean");
@@ -142,7 +142,7 @@ jobject OnyxNative::testBoolCalc(const char* key, jobject jmap, bool b) {
 }
 
 
-jobject OnyxNative::testStrCalc(const char* key, jobject jmap, const char* s) {
+jobject OnyxNative::assocStr(const char* key, jobject jmap, const char* s) {
     jstring strKey = m_env->NewStringUTF(key);
 
 	jobject strObject = m_env->NewStringUTF(s);
@@ -231,9 +231,6 @@ void OnyxNative::init(){}
 // IPersistentMap utilities -------------------------------------------
 //
 
-jobject OnyxNative::emptyMap() {
-	return m_env->CallStaticObjectMethod(m_mapClass, m_mapEmptyId);
-}
 
 jobject OnyxNative::merge(jobject a, jobject b) {
 	return m_env->CallStaticObjectMethod(m_mapClass, m_mapMergeId, a, b);
@@ -325,52 +322,6 @@ jstring OnyxNative::getStr(jobject ipmap, std::string key){
 	}
 }
 
-
-	// Assoc ------------------------
-	//
-jobject OnyxNative::assocObj(jobject ipmap, std::string key, jobject value) {
-	jstring keyStr = toJavaString(key);
-	return m_env->CallStaticObjectMethod(m_mapClass, m_mapAssocId, ipmap, keyStr, value);
-}
-
-jobject OnyxNative::assocInt(jobject ipmap, std::string key, int value) {
-	jclass clazz = getClass("java/lang/Integer");
-	jmethodID mid =  m_env->GetMethodID(clazz, "<init>", "(I)V");
-	jobject obj = m_env->NewObject(clazz, mid, (jint) value);
-	return assocObj(ipmap, key, obj);
-}
-
-jobject OnyxNative::assocLong(jobject ipmap, std::string key, long value) {
-	jclass clazz = getClass("java/lang/Long");
-	jmethodID init =  m_env->GetMethodID(clazz, "<init>", "(J)V");
-	jobject obj = m_env->NewObject(clazz, init, (jlong) value);
-	return assocObj(ipmap, key, obj);
-}
-
-jobject OnyxNative::assocFloat(jobject ipmap, std::string key, float value) {
-	jclass clazz = getClass("java/lang/Float");
-	jmethodID init =  m_env->GetMethodID(clazz, "<init>", "(F)V");
-	jobject obj = m_env->NewObject(clazz, init, (jfloat) value);
-	return assocObj(ipmap, key, obj);
-}
-
-jobject OnyxNative::assocDouble(jobject ipmap, std::string key, double value) {
-	jclass clazz = getClass("java/lang/Double");
-	jmethodID init =  m_env->GetMethodID(clazz, "<init>", "(D)V");
-	jobject obj = m_env->NewObject(clazz, init, (jdouble) value);
-	return assocObj(ipmap, key, obj);
-}
-
-jobject OnyxNative::assocBool(jobject ipmap, std::string key, bool value) {
-	jclass clazz = getClass("java/lang/Boolean");
-	jmethodID init =  m_env->GetMethodID(clazz, "<init>", "(Z)V");
-	jobject obj = m_env->NewObject(clazz, init, (jboolean) value);
-	return assocObj(ipmap, key, obj);
-}
-
-jobject OnyxNative::assocStr(jobject ipmap, std::string key, std::string value) {
-	return assocObj(ipmap, key, toJavaString(value));
-}
 
 	// Dissoc ------------------------
 	//

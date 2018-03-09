@@ -13,32 +13,32 @@ extern "C"
         return onyx_native;
     }
 
-    jobject onyxlib_testnewmap(OnyxLib onyxlib) {
-        return onyxlib->testNewMap();
+    jobject onyxlib_emptymap(OnyxLib onyxlib) {
+        return onyxlib->emptyMap();
     }
 
-    jobject onyxlib_testobjcalc(OnyxLib onyxlib, const char* key, jobject jmap, jobject jobj) {
-        return onyxlib->testObjCalc(key, jmap, jobj);
+    jobject onyxlib_assocobj(OnyxLib onyxlib, const char* key, jobject jmap, jobject jobj) {
+        return onyxlib->assocObj(key, jmap, jobj);
     }
 
-    jobject onyxlib_testintcalc(OnyxLib onyxlib, const char* key, jobject jmap, int i) {
-        return onyxlib->testIntCalc(key, jmap, i);
+    jobject onyxlib_assocint(OnyxLib onyxlib, const char* key, jobject jmap, int i) {
+        return onyxlib->assocInt(key, jmap, i);
     }
 
-    jobject onyxlib_testfloatcalc(OnyxLib onyxlib, const char* key, jobject jmap, float f) {
-        return onyxlib->testFloatCalc(key, jmap, f);
+    jobject onyxlib_assocfloat(OnyxLib onyxlib, const char* key, jobject jmap, float f) {
+        return onyxlib->assocFloat(key, jmap, f);
     }
 
-    jobject onyxlib_testdoublecalc(OnyxLib onyxlib, const char* key, jobject jmap, double d) {
-        return onyxlib->testDoubleCalc(key, jmap, d);
+    jobject onyxlib_assocdouble(OnyxLib onyxlib, const char* key, jobject jmap, double d) {
+        return onyxlib->assocDouble(key, jmap, d);
     }
 
-    jobject onyxlib_testboolcalc(OnyxLib onyxlib, const char* key, jobject jmap, bool b) {
-        return onyxlib->testBoolCalc(key, jmap, b);
+    jobject onyxlib_assocbool(OnyxLib onyxlib, const char* key, jobject jmap, bool b) {
+        return onyxlib->assocBool(key, jmap, b);
     }
 
-    jobject onyxlib_teststrcalc(OnyxLib onyxlib, const char* key, jobject jmap, const char* s) {
-        return onyxlib->testStrCalc(key, jmap, s);
+    jobject onyxlib_assocstr(OnyxLib onyxlib, const char* key, jobject jmap, const char* s) {
+        return onyxlib->assocStr(key, jmap, s);
     }
 
 
@@ -81,10 +81,6 @@ extern "C"
         return onyx_lib->toJavaString(s);
     }
 
-    jobject onyxlib_emptymap(OnyxLib onyx_lib) {
-        return onyx_lib->emptyMap();
-    }
-
     jobject onyxlib_merge(OnyxLib onyx_lib, jobject jmap1, jobject jmap2) {
         return onyx_lib->merge(jmap1, jmap2);
     }
@@ -122,42 +118,6 @@ extern "C"
     jstring onyxlib_getstr(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
         std::string k = jkey;
         return onyx_lib->getStr(jmap, k);
-    }
-
-    jobject onyxlib_assocobj(OnyxLib onyx_lib, jobject jmap, const char* jkey, jobject jobj) {
-        std::string k = jkey;
-        return onyx_lib->assocObj(jmap, k, jobj);
-    }
-
-    jobject onyxlib_assocint(OnyxLib onyx_lib, jobject jmap, const char* jkey, int jint) {
-        std::string k = jkey;
-        return onyx_lib->assocInt(jmap, k, jint);
-    }
-
-    jobject onyxlib_assoclong(OnyxLib onyx_lib, jobject jmap, const char* jkey, long jlong) {
-        std::string k = jkey;
-        return onyx_lib->assocLong(jmap, k, jlong);
-    }
-
-    jobject onyxlib_assocfloat(OnyxLib onyx_lib, jobject jmap, const char* jkey, float jfloat) {
-        std::string k = jkey;
-        return onyx_lib->assocFloat(jmap, k, jfloat);
-    }
-
-    jobject onyxlib_assocdouble(OnyxLib onyx_lib, jobject jmap, const char* jkey, double jdouble) {
-        std::string k = jkey;
-        return onyx_lib->assocDouble(jmap, k, jdouble);
-    }
-
-    jobject onyxlib_assocbool(OnyxLib onyx_lib, jobject jmap, const char* jkey, bool jbool) {
-        std::string k = jkey;
-        return onyx_lib->assocBool(jmap, k, jbool);
-    }
-
-    jobject onyxlib_assocstr(OnyxLib onyx_lib, jobject jmap, const char* jkey, const char* jstr) {
-        std::string k = jkey;
-        std::string str = jstr;
-        return onyx_lib->assocStr(jmap, k, str);
     }
 
     jobject onyxlib_dissoc(OnyxLib onyx_lib, jobject jmap, const char* jkey) {

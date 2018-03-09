@@ -19,13 +19,13 @@ class OnyxNative {
 
 		void init();
 
-        jobject testNewMap();
-        jobject testObjCalc(const char*, jobject, jobject);
-        jobject testIntCalc(const char*, jobject, int);
-        jobject testFloatCalc(const char*, jobject, float);
-        jobject testDoubleCalc(const char*, jobject, double);
-        jobject testBoolCalc(const char*, jobject, bool d);
-        jobject testStrCalc(const char*, jobject, const char*);
+        jobject emptyMap();
+        jobject assocObj(const char*, jobject, jobject);
+        jobject assocInt(const char*, jobject, int);
+        jobject assocFloat(const char*, jobject, float);
+        jobject assocDouble(const char*, jobject, double);
+        jobject assocBool(const char*, jobject, bool d);
+        jobject assocStr(const char*, jobject, const char*);
 
 		// JNI --------------------------
 		//
@@ -46,7 +46,6 @@ class OnyxNative {
 		// MapFns -----------------------
 		//
 
-		jobject emptyMap();
 		jobject merge(jobject a, jobject b);
 
 			// Get
@@ -64,14 +63,6 @@ class OnyxNative {
 		bool 		getBool(jobject ipmap, std::string key);
 		jstring 	getStr(jobject ipmap, std::string key);
 
-			// Assoc
-		jobject assocObj(jobject ipmap, std::string key, jobject value);
-		jobject assocInt(jobject ipmap, std::string key, int value);
-		jobject assocLong(jobject ipmap, std::string key, long value);
-		jobject assocFloat(jobject ipmap, std::string key, float value);
-		jobject assocDouble(jobject ipmap, std::string key, double value);
-		jobject assocBool(jobject ipmap, std::string key, bool value);
-		jobject assocStr(jobject ipmap, std::string key, std::string value);
 
 			// Dissoc
 		jobject dissoc(jobject ipmap, std::string key);
