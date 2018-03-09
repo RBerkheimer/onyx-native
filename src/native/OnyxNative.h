@@ -19,7 +19,7 @@ class OnyxNative {
 
 		void init();
 
-        void testCalc(const char*);
+        jobject testCalc(const char*);
 
 
 		// JNI --------------------------

@@ -7,7 +7,7 @@ extern "C" {
 typedef struct OnyxNative * OnyxLib;
 OnyxLib onyxlib_new(JNIEnv *);
 void onyxlib_test(const char*);
-void onyxlib_testcalc(OnyxLib, const char*);
+jobject onyxlib_testcalc(OnyxLib, const char*);
 void    onyxlib_free(OnyxLib);
 void    onyxlib_errorcheck(OnyxLib, const char*);
 JNIEnv* onyxlib_getenv(OnyxLib);
