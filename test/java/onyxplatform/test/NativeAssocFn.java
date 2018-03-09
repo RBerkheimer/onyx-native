@@ -45,7 +45,7 @@ public class NativeAssocFn extends NativeOnyxFn {
 	* @param key The keyword
 	* @param d The double value to assoc to the coll
  	*/
-	protected native void assocDouble(IPersistentMap m);
+	protected native IPersistentMap assocDouble(IPersistentMap m);
 
 	/**
  	* Calls the native assocBool implementation
@@ -53,7 +53,7 @@ public class NativeAssocFn extends NativeOnyxFn {
 	* @param key The keyword
 	* @param b The boolean value to assoc to the coll
  	*/
-	protected native void assocBool(IPersistentMap m);
+	protected native IPersistentMap assocBool(IPersistentMap m);
 
 	/**
  	* Calls the native assocStr implementation
@@ -61,7 +61,7 @@ public class NativeAssocFn extends NativeOnyxFn {
 	* @param key The keyword
 	* @param s The String to assoc to the coll
  	*/
-	protected native void assocStr(IPersistentMap m);
+	protected native IPersistentMap assocStr(IPersistentMap m);
 
 	/**
 	 * Consumes an empty map and associates
@@ -86,11 +86,11 @@ public class NativeAssocFn extends NativeOnyxFn {
         //associates float = 1.1f
         m = assocFloat(m);
         //associates double = 2.2d
-        //assocDouble(m);
+        m = assocDouble(m);
         //associates bool = true
-        //assocBool(m);
+        m = assocBool(m);
         //associates str = 'TEST'
-        //assocStr(m);
+        m = assocStr(m);
         return m;
 	}
 }

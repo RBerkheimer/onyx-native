@@ -43,7 +43,7 @@ void OnyxNative::checkAndThrow(std::string msg) {
 	}
 }
 
-jobject OnyxNative::testCalc(const char* key, jobject jmap) {
+jobject OnyxNative::testObjCalc(const char* key, jobject jmap) {
     jstring test = m_env->NewStringUTF(key);
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapEmptyId = getMethod(mc, "emptyMap", "()Lclojure/lang/IPersistentMap;", true);
@@ -97,6 +97,64 @@ jobject OnyxNative::testFloatCalc(const char* key, jobject jmap, float f) {
     }
     return updatedMap;
 }
+
+jobject OnyxNative::testDoubleCalc(const char* key, jobject jmap, double d) {
+    jstring doubleKey = m_env->NewStringUTF(key);
+
+    jclass doubleClass = getClass("java/lang/Double");
+	jmethodID doubleMethodId =  m_env->GetMethodID(doubleClass, "<init>", "(D)V");
+	jobject doubleObject = m_env->NewObject(doubleClass, doubleMethodId, (jdouble) d);
+
+    jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
+    jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
+    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, doubleKey, doubleObject);
+
+    int a;
+    /* for loop execution */
+    for( a = 10; a < 20; a = a + 1 ){
+        printf("its a %s: %d\n", key, a);
+    }
+    return updatedMap;
+}
+
+
+jobject OnyxNative::testBoolCalc(const char* key, jobject jmap, bool b) {
+    jstring boolKey = m_env->NewStringUTF(key);
+
+    jclass boolClass = getClass("java/lang/Boolean");
+	jmethodID boolMethodId =  m_env->GetMethodID(boolClass, "<init>", "(Z)V");
+	jobject boolObject = m_env->NewObject(boolClass, boolMethodId, (jboolean) b);
+
+    jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
+    jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
+    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, boolKey, boolObject);
+
+    int a;
+    /* for loop execution */
+    for( a = 10; a < 20; a = a + 1 ){
+        printf("its a %s: %d\n", key, a);
+    }
+    return updatedMap;
+}
+
+
+jobject OnyxNative::testStrCalc(const char* key, jobject jmap, const char* s) {
+    jstring strKey = m_env->NewStringUTF(key);
+
+	jobject strObject = m_env->NewStringUTF(s);
+
+    jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
+    jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
+    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, strKey, strObject);
+
+    int a;
+    /* for loop execution */
+    for( a = 10; a < 20; a = a + 1 ){
+        printf("its a %s: %d\n", key, a);
+    }
+    return updatedMap;
+}
+
 
 
 

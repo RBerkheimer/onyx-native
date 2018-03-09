@@ -34,25 +34,25 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocDouble
- * Signature: (Lclojure/lang/IPersistentMap;)V
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
   (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocBool
- * Signature: (Lclojure/lang/IPersistentMap;)V
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
   (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeAssocFn
  * Method:    assocStr
- * Signature: (Lclojure/lang/IPersistentMap;)V
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT void JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
   (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus

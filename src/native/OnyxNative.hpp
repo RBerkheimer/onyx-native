@@ -3,9 +3,13 @@ struct OnyxNative
     OnyxNative(JNIEnv*);
     ~OnyxNative();
     void checkAndThrow(std::string);
-    jobject testCalc(const char*, jobject);
+    jobject testObjCalc(const char*, jobject);
     jobject testIntCalc(const char*, jobject, int);
     jobject testFloatCalc(const char*, jobject, float);
+    jobject testDoubleCalc(const char*, jobject, double);
+    jobject testBoolCalc(const char*, jobject, bool d);
+    jobject testStrCalc(const char*, jobject, const char*);
+
     JNIEnv* getEnv();
     jclass getClass(std::string);
     jmethodID getMethod(jclass, std::string, std::string, bool);

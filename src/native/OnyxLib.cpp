@@ -13,8 +13,8 @@ extern "C"
         return onyx_native;
     }
 
-    jobject onyxlib_testcalc(OnyxLib onyxlib, const char* key, jobject jmap) {
-        return onyxlib->testCalc(key, jmap);
+    jobject onyxlib_testobjcalc(OnyxLib onyxlib, const char* key, jobject jmap) {
+        return onyxlib->testObjCalc(key, jmap);
     }
 
     jobject onyxlib_testintcalc(OnyxLib onyxlib, const char* key, jobject jmap, int i) {
@@ -23,6 +23,18 @@ extern "C"
 
     jobject onyxlib_testfloatcalc(OnyxLib onyxlib, const char* key, jobject jmap, float f) {
         return onyxlib->testFloatCalc(key, jmap, f);
+    }
+
+    jobject onyxlib_testdoublecalc(OnyxLib onyxlib, const char* key, jobject jmap, double d) {
+        return onyxlib->testDoubleCalc(key, jmap, d);
+    }
+
+    jobject onyxlib_testboolcalc(OnyxLib onyxlib, const char* key, jobject jmap, bool b) {
+        return onyxlib->testBoolCalc(key, jmap, b);
+    }
+
+    jobject onyxlib_teststrcalc(OnyxLib onyxlib, const char* key, jobject jmap, const char* s) {
+        return onyxlib->testStrCalc(key, jmap, s);
     }
 
 
