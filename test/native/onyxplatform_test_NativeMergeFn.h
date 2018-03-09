@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     onyxplatform_test_NativeMergeFn
  * Method:    merge
- * Signature: (Lclojure/lang/IPersistentMap;Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
+ * Signature: ()Lclojure/lang/IPersistentMap;
  */
 JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeMergeFn_merge
-  (JNIEnv *, jobject, jobject, jobject);
+  (JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

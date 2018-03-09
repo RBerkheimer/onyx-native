@@ -8,6 +8,7 @@ struct OnyxNative
     void checkAndThrow(std::string);
 
     jobject emptyMap();
+    jobject mergeMaps(jobject, jobject);
     jobject assocObj(const char*, jobject, jobject);
     jobject assocInt(const char*, jobject, int);
     jobject assocFloat(const char*, jobject, float);
@@ -19,7 +20,6 @@ struct OnyxNative
     jmethodID getMethod(jclass, std::string, std::string, bool);
     jstring toJavaString(std::string);
     void init();
-    jobject merge(jobject, jobject);
     jobject getObj(jobject, std::string);
     int getInt(jobject, std::string);
     long getLong(jobject, std::string);

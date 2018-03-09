@@ -2,7 +2,7 @@
 
 #include "OnyxLib.h"
 #include "onyxplatform_test_NativeEmptyFn.h"
-//#include "onyxplatform_test_NativeMergeFn.h"
+#include "onyxplatform_test_NativeMergeFn.h"
 #include "onyxplatform_test_NativeAssocFn.h"
 //#include "onyxplatform_test_NativeDissocFn.h"
 //#include "onyxplatform_test_NativeGetFn.h"
@@ -25,13 +25,24 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeEmptyFn_createEmptyMap
  * Method:    mergeSimple
  * Signature: (Lclojure/lang/IPersistentMap;Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT void JNICALL Java_onyxplatform_test_NativeMergeFn_merge
-  (JNIEnv *env, jobject inst, jobject jmap1, jobject jmap2) {
-      OnyxLib olib = onyxlib_new(env, inst);
-      jobject newmap = onyxlib_merge(olib, jmap1, jmap2);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeMergeFn_merge
+  (JNIEnv *env, jobject inst) {
+      OnyxLib olib = onyxlib_new(env);
+
+      jobject emptymap1 = onyxlib_emptymap(olib);
+      const char *k1 = "map1";
+      int v1 = 1;
+      jobject map1 = onyxlib_assocint(olib, k1, emptymap1, v1);
+
+      jobject emptymap2 = onyxlib_emptymap(olib);
+      const char *k2 = "map2";
+      const char *v2 = "TEST";
+      jobject map2 = onyxlib_assocstr(olib, k2, emptymap2, v2);
+
+      jobject r = onyxlib_mergemaps(olib, map1, map2);
       onyxlib_free(olib);
-      return newmap;
-}*/
+      return r;
+}
 
 /*
  * Class:     onyxplatform_test_NativeDissocFn

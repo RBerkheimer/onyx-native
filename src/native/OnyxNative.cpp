@@ -14,8 +14,6 @@ using namespace std;
 
 OnyxNative::OnyxNative (JNIEnv *env) {
 
-    printf("OnyxNative constructor!\n");
-
     m_env = env;
 
 	jclass mc = env->FindClass("org/onyxplatform/api/java/utils/MapFns");
@@ -23,13 +21,10 @@ OnyxNative::OnyxNative (JNIEnv *env) {
 
 	std::string msg = "OnyxNative::OnyxNative> failed to find MapFns";
 	checkAndThrow(msg);
-    printf("Finished construction!\n");
 }
 
 OnyxNative::~OnyxNative () {
-    printf("Inside OnyxNative destructor!\n");
 	m_env->DeleteGlobalRef(m_mapClass);
-    printf("Finished Destruction!\n");
 }
 
 // Utils ---------------------------------------
@@ -50,12 +45,18 @@ jobject OnyxNative::emptyMap() {
     return emptyMap;
 }
 
+jobject OnyxNative::mergeMaps(jobject map1, jobject map2) {
+    jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
+    jmethodID m_mapMergeId = getMethod(mc, "merge", "(Lclojure/lang/IPersistentMap;Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;", true);
+    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapMergeId, map1, map2);
+    return updatedMap;
+}
+
 jobject OnyxNative::assocObj(const char* key, jobject jmap, jobject jobj) {
-    jstring test = m_env->NewStringUTF(key);
+    jstring objKey = m_env->NewStringUTF(key);
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
-    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, test, jobj);
-
+    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, objKey, jobj);
     return updatedMap;
 }
 
@@ -69,7 +70,6 @@ jobject OnyxNative::assocInt(const char* key, jobject jmap, int i) {
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, intKey, intObject);
-
     return updatedMap;
 }
 
@@ -83,7 +83,6 @@ jobject OnyxNative::assocFloat(const char* key, jobject jmap, float f) {
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, floatKey, floatObject);
-
     return updatedMap;
 }
 
@@ -97,7 +96,6 @@ jobject OnyxNative::assocDouble(const char* key, jobject jmap, double d) {
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, doubleKey, doubleObject);
-
     return updatedMap;
 }
 
@@ -112,7 +110,6 @@ jobject OnyxNative::assocBool(const char* key, jobject jmap, bool b) {
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, boolKey, boolObject);
-
     return updatedMap;
 }
 
@@ -125,7 +122,6 @@ jobject OnyxNative::assocStr(const char* key, jobject jmap, const char* s) {
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, strKey, strObject);
-
     return updatedMap;
 }
 
@@ -196,15 +192,6 @@ void OnyxNative::init(){}
 	checkAndThrow(msg);
 
 }*/
-
-
-// IPersistentMap utilities -------------------------------------------
-//
-
-
-jobject OnyxNative::merge(jobject a, jobject b) {
-	return m_env->CallStaticObjectMethod(m_mapClass, m_mapMergeId, a, b);
-}
 
 
 	// Get -------------------------

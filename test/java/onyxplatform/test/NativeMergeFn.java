@@ -16,7 +16,7 @@ public class NativeMergeFn extends NativeOnyxFn {
 		super(m);
 	}
 
-	protected native IPersistentMap merge(IPersistentMap m1, IPersistentMap m2);
+	protected native IPersistentMap merge();
 
 	/**
 	 * Consumes a map with one value and
@@ -24,8 +24,6 @@ public class NativeMergeFn extends NativeOnyxFn {
 	 *  :test "A"
 	 */
 	public Object consumeSegment(IPersistentMap m) {
-		IPersistentMap m2 = MapFns.emptyMap();
-		m2 = MapFns.assoc(m2, "test", new String("A"));
-		return merge(m, m2);
+		return merge();
 	}
 }

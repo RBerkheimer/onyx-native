@@ -20,6 +20,7 @@ class OnyxNative {
 		void init();
 
         jobject emptyMap();
+        jobject mergeMaps(jobject, jobject);
         jobject assocObj(const char*, jobject, jobject);
         jobject assocInt(const char*, jobject, int);
         jobject assocFloat(const char*, jobject, float);

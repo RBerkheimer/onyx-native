@@ -10,6 +10,7 @@
           inputs [{:pass-through "PASSTHROUGH"}]
           expected {:out [{:pass-through "PASSTHROUGH"} :done]}
           outputs (.runJobCollectOutputs testObject inputs) ]
+      (println "pass-through-test> outputs=" outputs)
       (.shutdown testObject)
       (is (= expected outputs))))
 
@@ -20,6 +21,7 @@
         inputs [{:pass-through "PASSTHROUGH"}]
         expected {:out [{} :done]}
         outputs (.runJobCollectOutputs testObject inputs) ]
+    (println "empty-map-test> outputs=" outputs)
     (.shutdown testObject)
     (is (= expected outputs))))
 
@@ -39,17 +41,18 @@
 (.shutdown testObject)
 (is (= expected outputs))))
 
-(comment (deftest merge-map-test
+(deftest merge-map-test
   (let [testObject (NativeSingleJavaTest.
                      "onyx-env.edn"
                      NativeSingleJavaTest/MERGE_FN "OnyxNativeTest")
         inputs [{:pass-through "PASSTHROUGH"}]
-        expected {:out [{:pass-through "PASSTHROUGH" :test "A"} :done]}
+        expected {:out [{:map1 1 :map2 "TEST"} :done]}
         outputs (.runJobCollectOutputs testObject inputs) ]
+    (println "merge-map-test> outputs=" outputs)
     (.shutdown testObject)
     (is (= expected outputs))))
 
-(deftest get-map-test
+(comment (deftest get-map-test
   (let [testObject (NativeSingleJavaTest.
                      "onyx-env.edn"
                      NativeSingleJavaTest/GET_FN "OnyxNativeTest")

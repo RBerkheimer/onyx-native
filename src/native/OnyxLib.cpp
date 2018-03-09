@@ -9,12 +9,19 @@ extern "C"
 {
     OnyxLib onyxlib_new(JNIEnv *env) {
         OnyxLib onyx_native = new OnyxNative(env);
-        printf("inside onyxlib_new!\n");
         return onyx_native;
+    }
+
+    void onyxlib_free(OnyxLib onyx_lib) {
+        delete onyx_lib;
     }
 
     jobject onyxlib_emptymap(OnyxLib onyxlib) {
         return onyxlib->emptyMap();
+    }
+
+    jobject onyxlib_mergemaps(OnyxLib onyxlib, jobject map1, jobject map2) {
+        return onyxlib->mergeMaps(map1, map2);
     }
 
     jobject onyxlib_assocobj(OnyxLib onyxlib, const char* key, jobject jmap, jobject jobj) {
@@ -41,15 +48,6 @@ extern "C"
         return onyxlib->assocStr(key, jmap, s);
     }
 
-
-    void onyxlib_test(const char* teststr) {
-        std::string k = teststr;
-        printf("%s\n", teststr);
-    }
-
-    void onyxlib_free(OnyxLib onyx_lib) {
-        delete onyx_lib;
-    }
 
     void onyxlib_errorcheck(OnyxLib onyx_lib, const char* message){
         std::string m = message;
@@ -79,10 +77,6 @@ extern "C"
     jstring onyxlib_tojavastring(OnyxLib onyx_lib, const char* cstr) {
         std::string s = cstr;
         return onyx_lib->toJavaString(s);
-    }
-
-    jobject onyxlib_merge(OnyxLib onyx_lib, jobject jmap1, jobject jmap2) {
-        return onyx_lib->merge(jmap1, jmap2);
     }
 
     jobject onyxlib_getobj(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
