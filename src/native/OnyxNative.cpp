@@ -44,6 +44,10 @@ void OnyxNative::checkAndThrow(std::string msg) {
 }
 
 void OnyxNative::testCalc(const char* key) {
+    jstring test = m_env->NewStringUTF(key);
+    jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
+    jmethodID m_mapEmptyId = getMethod(mc, "emptyMap", "()Lclojure/lang/IPersistentMap;", true);
+    jobject emptyMap = m_env->CallStaticObjectMethod(mc, m_mapEmptyId);
     int a;
     /* for loop execution */
     for( a = 10; a < 20; a = a + 1 ){
@@ -90,7 +94,9 @@ jstring OnyxNative::toJavaString(std::string s) {
 // JNI Entry point, Bootstrapping -------------------------------------
 //
 
-void OnyxNative::init() {
+void OnyxNative::init(){}
+
+/*void OnyxNative::init() {
 
 	m_mapEmptyId = getMethod(m_mapClass, "emptyMap", "()Lclojure/lang/IPersistentMap;", true);
 	std::string msg = "OnyxNative::init> emptyMap failed )";
@@ -112,7 +118,7 @@ void OnyxNative::init() {
 	msg = "OnyxNative::init> dissoc failed )";
 	checkAndThrow(msg);
 
-}
+}*/
 
 
 // IPersistentMap utilities -------------------------------------------
