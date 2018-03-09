@@ -1,7 +1,7 @@
 #include <jni.h>
 
 #include "OnyxLib.h"
-//#include "onyxplatform_test_NativeEmptyFn.h"
+#include "onyxplatform_test_NativeEmptyFn.h"
 //#include "onyxplatform_test_NativeMergeFn.h"
 #include "onyxplatform_test_NativeAssocFn.h"
 //#include "onyxplatform_test_NativeDissocFn.h"
@@ -12,14 +12,13 @@
  * Method:    createEmptyMap
  * Signature: ()Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeEmptyFn_createEmptyMap
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeEmptyFn_createEmptyMap
   (JNIEnv *env, jobject jobj) {
-    OnyxLib olib = onyxlib_new(env, jobj);
+    OnyxLib olib = onyxlib_new(env);
 	jobject newmap = onyxlib_emptymap(olib);
     onyxlib_free(olib);
     return newmap;
-    return jobj;
-}*/
+}
 
 /*
  * Class:     onyxplatform_test_NativeMergeFn
