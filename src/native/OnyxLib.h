@@ -9,7 +9,8 @@ OnyxLib onyxlib_new(JNIEnv *);
 
 void onyxlib_test(const char*);
 
-jobject onyxlib_testobjcalc(OnyxLib, const char*, jobject);
+jobject onyxlib_testnewmap(OnyxLib);
+jobject onyxlib_testobjcalc(OnyxLib, const char*, jobject, jobject);
 jobject onyxlib_testintcalc(OnyxLib, const char*, jobject, int);
 jobject onyxlib_testfloatcalc(OnyxLib, const char*, jobject, float);
 jobject onyxlib_testdoublecalc(OnyxLib, const char*, jobject, double);

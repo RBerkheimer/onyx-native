@@ -62,7 +62,8 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
       const char *k = "object";
       printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_testobjcalc(olib, k, m);
+      jobject emptyMap = onyxlib_testnewmap(olib);
+      jobject r = onyxlib_testobjcalc(olib, k, m, emptyMap);
       onyxlib_free(olib);
       return r;
 }

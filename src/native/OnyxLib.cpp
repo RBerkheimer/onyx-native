@@ -13,8 +13,12 @@ extern "C"
         return onyx_native;
     }
 
-    jobject onyxlib_testobjcalc(OnyxLib onyxlib, const char* key, jobject jmap) {
-        return onyxlib->testObjCalc(key, jmap);
+    jobject onyxlib_testnewmap(OnyxLib onyxlib) {
+        return onyxlib->testNewMap();
+    }
+
+    jobject onyxlib_testobjcalc(OnyxLib onyxlib, const char* key, jobject jmap, jobject jobj) {
+        return onyxlib->testObjCalc(key, jmap, jobj);
     }
 
     jobject onyxlib_testintcalc(OnyxLib onyxlib, const char* key, jobject jmap, int i) {

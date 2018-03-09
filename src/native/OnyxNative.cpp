@@ -43,21 +43,25 @@ void OnyxNative::checkAndThrow(std::string msg) {
 	}
 }
 
-jobject OnyxNative::testObjCalc(const char* key, jobject jmap) {
-    jstring test = m_env->NewStringUTF(key);
+jobject OnyxNative::testNewMap() {
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapEmptyId = getMethod(mc, "emptyMap", "()Lclojure/lang/IPersistentMap;", true);
+    jobject emptyMap = m_env->CallStaticObjectMethod(mc, m_mapEmptyId);
+    return emptyMap;
+}
+
+jobject OnyxNative::testObjCalc(const char* key, jobject jmap, jobject jobj) {
+    jstring test = m_env->NewStringUTF(key);
+    jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
-    jobject emptyMap1 = m_env->CallStaticObjectMethod(mc, m_mapEmptyId);
-    jobject emptyMap2 = m_env->CallStaticObjectMethod(mc, m_mapEmptyId);
-    jobject map3 = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, test, emptyMap1);
+    jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, test, jobj);
 
     int a;
     /* for loop execution */
     for( a = 10; a < 20; a = a + 1 ){
         printf("its a %s: %d\n", key, a);
     }
-    return map3;
+    return updatedMap;
 }
 
 jobject OnyxNative::testIntCalc(const char* key, jobject jmap, int i) {

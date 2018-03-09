@@ -19,7 +19,8 @@ class OnyxNative {
 
 		void init();
 
-        jobject testObjCalc(const char*, jobject);
+        jobject testNewMap();
+        jobject testObjCalc(const char*, jobject, jobject);
         jobject testIntCalc(const char*, jobject, int);
         jobject testFloatCalc(const char*, jobject, float);
         jobject testDoubleCalc(const char*, jobject, double);
