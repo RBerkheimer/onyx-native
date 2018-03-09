@@ -56,11 +56,6 @@ jobject OnyxNative::assocObj(const char* key, jobject jmap, jobject jobj) {
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, test, jobj);
 
-    int a;
-    /* for loop execution */
-    for( a = 10; a < 20; a = a + 1 ){
-        printf("its a %s: %d\n", key, a);
-    }
     return updatedMap;
 }
 
@@ -75,11 +70,6 @@ jobject OnyxNative::assocInt(const char* key, jobject jmap, int i) {
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, intKey, intObject);
 
-    int a;
-    /* for loop execution */
-    for( a = 10; a < 20; a = a + 1 ){
-        printf("its a %s: %d\n", key, a);
-    }
     return updatedMap;
 }
 
@@ -94,11 +84,6 @@ jobject OnyxNative::assocFloat(const char* key, jobject jmap, float f) {
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, floatKey, floatObject);
 
-    int a;
-    /* for loop execution */
-    for( a = 10; a < 20; a = a + 1 ){
-        printf("its a %s: %d\n", key, a);
-    }
     return updatedMap;
 }
 
@@ -113,11 +98,6 @@ jobject OnyxNative::assocDouble(const char* key, jobject jmap, double d) {
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, doubleKey, doubleObject);
 
-    int a;
-    /* for loop execution */
-    for( a = 10; a < 20; a = a + 1 ){
-        printf("its a %s: %d\n", key, a);
-    }
     return updatedMap;
 }
 
@@ -133,11 +113,6 @@ jobject OnyxNative::assocBool(const char* key, jobject jmap, bool b) {
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, boolKey, boolObject);
 
-    int a;
-    /* for loop execution */
-    for( a = 10; a < 20; a = a + 1 ){
-        printf("its a %s: %d\n", key, a);
-    }
     return updatedMap;
 }
 
@@ -151,11 +126,6 @@ jobject OnyxNative::assocStr(const char* key, jobject jmap, const char* s) {
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
     jobject updatedMap = m_env->CallStaticObjectMethod(mc, m_mapAssocId, jmap, strKey, strObject);
 
-    int a;
-    /* for loop execution */
-    for( a = 10; a < 20; a = a + 1 ){
-        printf("its a %s: %d\n", key, a);
-    }
     return updatedMap;
 }
 
