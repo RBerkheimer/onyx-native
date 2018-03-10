@@ -83,39 +83,28 @@ extern "C"
         return onyx_lib->toJavaString(s);
     }
 
-    jobject onyxlib_getobj(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
-        std::string k = jkey;
-        return onyx_lib->getObj(jmap, k);
+    jobject onyxlib_getobj(OnyxLib onyx_lib, jobject map, const char* key) {
+        return onyx_lib->getObj(map, key);
     }
 
-    int onyxlib_getint(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
-        std::string k = jkey;
-        return onyx_lib->getInt(jmap, k);
+    int onyxlib_getint(OnyxLib onyx_lib, jobject map, const char* key) {
+        return onyx_lib->getInt(map, key);
     }
 
-    long onyxlib_getlong(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
-        std::string k = jkey;
-        return onyx_lib->getLong(jmap, k);
+    float onyxlib_getfloat(OnyxLib onyx_lib, jobject map, const char* key) {
+        return onyx_lib->getFloat(map, key);
     }
 
-    float onyxlib_getfloat(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
-        std::string k = jkey;
-        return onyx_lib->getFloat(jmap, k);
+    double onyxlib_getdouble(OnyxLib onyx_lib, jobject map, const char* key) {
+        return onyx_lib->getDouble(map, key);
     }
 
-    double onyxlib_getdouble(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
-        std::string k = jkey;
-        return onyx_lib->getDouble(jmap, k);
+    bool onyxlib_getbool(OnyxLib onyx_lib, jobject map, const char* key) {
+        return onyx_lib->getBool(map, key);
     }
 
-    bool onyxlib_getbool(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
-        std::string k = jkey;
-        return onyx_lib->getBool(jmap, k);
-    }
-
-    jstring onyxlib_getstr(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
-        std::string k = jkey;
-        return onyx_lib->getStr(jmap, k);
+    jstring onyxlib_getstr(OnyxLib onyx_lib, jobject map, const char* key) {
+        return onyx_lib->getStr(map, key);
     }
 
 }

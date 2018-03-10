@@ -2,9 +2,12 @@ struct OnyxNative
 {
     OnyxNative(JNIEnv*);
     ~OnyxNative();
+    void init();
 
     JNIEnv* getEnv();
-
+    jclass getClass(std::string);
+    jmethodID getMethod(jclass, std::string, std::string, bool);
+    jstring toJavaString(std::string);
     void checkAndThrow(std::string);
 
     jobject emptyMap();
@@ -16,17 +19,11 @@ struct OnyxNative
     jobject assocDouble(jobject, const char*, double);
     jobject assocBool(jobject, const char*, bool d);
     jobject assocStr(jobject, const char*, const char*);
-
-    jclass getClass(std::string);
-    jmethodID getMethod(jclass, std::string, std::string, bool);
-    jstring toJavaString(std::string);
-    void init();
-    jobject getObj(jobject, std::string);
-    int getInt(jobject, std::string);
-    long getLong(jobject, std::string);
-    float getFloat(jobject, std::string);
-    double getDouble(jobject, std::string);
-    bool getBool(jobject, std::string);
-    jstring getStr(jobject, std::string);
-    jobject dissoc(jobject, std::string);
+    jobject getObj(jobject, const char*);
+    int     getInt(jobject, const char*);
+    long    getLong(jobject, const char*);
+    float   getFloat(jobject, const char*);
+    double  getDouble(jobject, const char*);
+    bool    getBool(jobject, const char*);
+    jstring getStr(jobject, const char*);
 };

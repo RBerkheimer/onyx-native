@@ -17,128 +17,83 @@ public class NativeGetFn extends NativeOnyxFn {
 
 	/**
  	* Calls the native getObj implementation
-	* @param m The coll
-	* @param key The keyword
-	* @return The object mapped to the keyword
+	* @param m Input map
+	* @return Updated map
  	*/
-	protected native IPersistentMap getObj(IPersistentMap m,String key);
+	protected native IPersistentMap getObj(IPersistentMap m);
 
 	/**
  	* Calls the native getInt implementation
-	* @param m The coll
-	* @param key The keyword
-	* @return The int mapped to the keyword
+	* @param m Input map
+	* @return Updated map
  	*/
-	protected native int getInt(IPersistentMap m,String key);
+	protected native IPersistentMap getInt(IPersistentMap m);
 
 	/**
  	* Calls the native getFloat implementation
-	* @param m The coll
-	* @param key The keyword
-	* @return The float mapped to the keyword
+	* @param m Input map
+	* @return Updated map
  	*/
-	protected native float getFloat(IPersistentMap m, String key);
+	protected native IPersistentMap getFloat(IPersistentMap m);
 
 	/**
  	* Calls the native getDouble implementation
-	* @param m The coll
-	* @param key The keyword
-	* @return The double mapped to the keyword
+	* @param m Input map
+	* @return Updated map
  	*/
-	protected native double getDouble(IPersistentMap m, String key);
+	protected native IPersistentMap getDouble(IPersistentMap m);
 
-	/**
- 	* Calls the native getLong implementation
-	* @param m The coll
-	* @param key The keyword
-	* @return The long mapped to the keyword
- 	*/
-	protected native long getLong(IPersistentMap m, String key);
 
 	/**
  	* Calls the native getBool implementation
-	* @param m The coll
-	* @param key The keyword
-	* @return The boolean mapped to the keyword
+	* @param m Input map
+	* @return Updated map
  	*/
-	protected native boolean getBool(IPersistentMap m, String key);
+	protected native IPersistentMap getBool(IPersistentMap m);
 
 	/**
  	* Calls the native getStr implementation
-	* @param m The coll
-	* @param key The keyword
-	* @return The String mapped to the keyword
+	* @param m Input map
+	* @return Updated map
  	*/
-	protected native String getStr(IPersistentMap m, String key);
+	protected native IPersistentMap getStr(IPersistentMap m);
 
 	/**
-	 * Expects the passed map to be populated
-	 * with the following key-value pairs
-	 * that follows the key convention of
-	 *
-	 * :type-name  i.e. :int :float, etc
+	 * Takes a populated map like
 	 *
 	 * {:object {}
 	 *  :int 1
 	 *  :float 1.1
 	 *  :double 2.2
-	 *  :long 3
 	 *  :bool true
 	 *  :str "TEST"
 	 *  }
 	 *
 	 * Returns a map containing:
-	 * {:passed true/false}
+	 * {:object {}
+     *  :object1 {}
+     *  :int 1
+     *  :int1 1
+     *  :float 1.1
+     *  :float1 1.1
+     *  :double 2.2
+     *  :double1 2.2
+     *  :bool true
+     *  :bool1 true
+     *  :str "TEST"
+     *  :str1 "TEST"
+     *  }
 	 * @param m The map to consume
-	 * @return an empty map or a map with ":passed false"
+	 * @return updated test map for comparison.
 	 */
 	public Object consumeSegment(IPersistentMap m) {
-        System.out.println("consuming!!!");
-        System.out.println(m);
 
-		IPersistentMap result = MapFns.emptyMap();
-		IPersistentMap failed = MapFns.assoc(result, "passed", false);
-
-		IPersistentMap map = getObj(m, "object");
-		if (!MapFns.isEmpty(map)) {
-			return failed;
-		}
-
-		int i = getInt(m, "int");
-		if (i != 1) {
-			System.out.println("getInt> failed. i=" + i);
-			return failed;
-		}
-
-		float f = getFloat(m, "float");
-		if (f != 1.1f) {
-			System.out.println("getInt> failed. f=" + f);
-			return failed;
-		}
-
-		long l = getLong(m, "long");
-		if (l != 3) {
-			System.out.println("getLong> failed.");
-			return failed;
-		}
-
-		double d = getDouble(m, "double");
-		if (d != 2.0d) {
-			return failed;
-		}
-
-		boolean b = getBool(m, "bool");
-		if (!b) {
-			System.out.println("getInt> failed. b=" + b);
-			return failed;
-		}
-
-		String s = getStr(m, "str");
-		if (s != "TEST") {
-			System.out.println("getStr> failed. s=" + s);
-			return failed;
-		}
-
-		return MapFns.assoc(result, "passed", true);
-	}
+		m = getObj(m);
+        m = getInt(m);
+        m = getFloat(m);
+        m = getDouble(m);
+        m = getBool(m);
+        m = getStr(m);
+        return m;
+    }
 }

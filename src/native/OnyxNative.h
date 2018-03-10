@@ -19,6 +19,12 @@ class OnyxNative {
 
 		void init();
 
+        JNIEnv* getEnv();
+        jclass  getClass(std::string className);
+        jmethodID getMethod(jclass clazz, std::string name, std::string decl, bool isStatic);
+        void checkAndThrow(std::string msg);
+        jstring toJavaString(std::string s);
+
         jobject emptyMap();
         jobject mergeMaps(jobject, jobject);
         jobject dissoc(jobject, const char*);
@@ -29,65 +35,15 @@ class OnyxNative {
         jobject assocBool(jobject, const char*, bool d);
         jobject assocStr(jobject, const char*, const char*);
 
-		// JNI --------------------------
-		//
-
-		JNIEnv* getEnv();
-
-		/**
-		 * NOTE: All JNI objects are scoped to its calling context.
-		 */
-		jclass  getClass(std::string className);
-
-		/**
- 		* NOTE: jmethodID's have full runtime scope and can be re-used.
- 		*/
-		jmethodID getMethod(jclass clazz, std::string name, std::string decl, bool isStatic);
-
-
-		// MapFns -----------------------
-		//
-
-		jobject merge(jobject a, jobject b);
-
-			// Get
-		jobject 	getObj(jobject ipmap, std::string key);
-		int 		getInt(jobject ipmap, std::string key);
-		long 		getLong(jobject ipmap, std::string key);
-		float 		getFloat(jobject ipmap, std::string key);
-
-		/**
-		 * NOTE: This does NOT preserve precision.
-		 *       adding 2.2 to the map, for example will
-		 *       return a value of 2.200000047683716
-		 */
-		double 		getDouble(jobject ipmap, std::string key);
-		bool 		getBool(jobject ipmap, std::string key);
-		jstring 	getStr(jobject ipmap, std::string key);
-
-
-			// Dissoc
-		jobject dissoc(jobject ipmap, std::string key);
-
-
-		// Utils -------------------------
-		//
-
-		void checkAndThrow(std::string msg);
-
-		jstring toJavaString(std::string s);
-
+        jobject 	getObj(jobject, const char*);
+        int 		getInt(jobject, const char*);
+        float 		getFloat(jobject, const char*);
+        double 		getDouble(jobject, const char*);
+        bool 		getBool(jobject, const char*);
+        jstring 	getStr(jobject, const char*);
 
 	private:
 		JNIEnv* m_env;
-
-		// Map utilities
-		jclass    m_mapClass;
-		jmethodID m_mapEmptyId;
-		jmethodID m_mapMergeId;
-		jmethodID m_mapGetId;
-		jmethodID m_mapAssocId;
-		jmethodID m_mapDissocId;
 };
 
 extern "C" {

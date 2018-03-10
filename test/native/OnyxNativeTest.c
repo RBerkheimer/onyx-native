@@ -5,7 +5,7 @@
 #include "onyxplatform_test_NativeMergeFn.h"
 #include "onyxplatform_test_NativeAssocFn.h"
 #include "onyxplatform_test_NativeDissocFn.h"
-//#include "onyxplatform_test_NativeGetFn.h"
+#include "onyxplatform_test_NativeGetFn.h"
 
 /*
  * Class:     onyxplatform_test_NativeEmptyFn
@@ -158,104 +158,98 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getObj
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getObj
-  (JNIEnv *env, jobject inst, jobject m, jstring key) {
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
-      OnyxLib olib = onyxlib_new(env, inst);
-      jobject result = onyxlib_getobj(olib, m, k);
-      (*env)->ReleaseStringUTFChars(env, key, k);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getObj
+  (JNIEnv *env, jobject inst, jobject m) {
+      const char *k1 = "object";
+      const char *k2 = "object1";
+      OnyxLib olib = onyxlib_new(env);
+      jobject obj = onyxlib_getobj(olib, m, k1);
+      jobject r = onyxlib_assocobj(olib, m, k2, obj);
       onyxlib_free(olib);
-      return result;
-}*/
+      return r;
+}
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getInt
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)I
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT void JNICALL Java_onyxplatform_test_NativeGetFn_getInt
-  (JNIEnv *env, jobject inst, jobject m, jstring key) {
-	/*const char *k = (*env)->GetStringUTFChars(env, key, 0);
-    OnyxLib olib = onyxlib_new(env, inst);
-	jint result = onyxlib_getint(olib, m, k);
-	(*env)->ReleaseStringUTFChars(env, key, k);
-    onyxlib_free(olib);
-	return result;
-}*/
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getInt
+  (JNIEnv *env, jobject inst, jobject m) {
+      const char *k1 = "int";
+      const char *k2 = "int1";
+      OnyxLib olib = onyxlib_new(env);
+      int i = onyxlib_getint(olib, m, k1);
+      jobject r = onyxlib_assocint(olib, m, k2, i);
+      onyxlib_free(olib);
+      return r;
+}
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getFloat
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)F
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT void JNICALL Java_onyxplatform_test_NativeGetFn_getFloat
-  (JNIEnv *env, jobject inst, jobject m, jstring key) {
-	const char *k = (*env)->GetStringUTFChars(env, key, 0);
-    OnyxLib olib = onyxlib_new(env, inst);
-	jfloat result = onyxlib_getfloat(olib, m, k);
-	(*env)->ReleaseStringUTFChars(env, key, k);
-    onyxlib_free(olib);
-	return result;
-}*/
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getFloat
+  (JNIEnv *env, jobject inst, jobject m) {
+      const char *k1 = "float";
+      const char *k2 = "float1";
+      OnyxLib olib = onyxlib_new(env);
+      float f = onyxlib_getfloat(olib, m, k1);
+      jobject r = onyxlib_assocfloat(olib, m, k2, f);
+      onyxlib_free(olib);
+      return r;
+}
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getDouble
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)D
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT void JNICALL Java_onyxplatform_test_NativeGetFn_getDouble
-  (JNIEnv *env, jobject inst, jobject m, jstring key) {
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
-      OnyxLib olib = onyxlib_new(env, inst);
-      jdouble result = onyxlib_getdouble(olib, m, k);
-      (*env)->ReleaseStringUTFChars(env, key, k);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getDouble
+  (JNIEnv *env, jobject inst, jobject m) {
+      const char *k1 = "double";
+      const char *k2 = "double1";
+      OnyxLib olib = onyxlib_new(env);
+      double d = onyxlib_getdouble(olib, m, k1);
+      jobject r = onyxlib_assocdouble(olib, m, k2, d);
       onyxlib_free(olib);
-      return result;
-}*/
+      return r;
+}
 
-/*
- * Class:     onyxplatform_test_NativeGetFn
- * Method:    getLong
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)J
- */
-/*JNIEXPORT void JNICALL Java_onyxplatform_test_NativeGetFn_getLong
-  (JNIEnv *env, jobject inst, jobject m, jstring key) {
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
-      OnyxLib olib = onyxlib_new(env, inst);
-      jlong result = onyxlib_getlong(olib, m, k);
-      (*env)->ReleaseStringUTFChars(env, key, k);
-      onyxlib_free(olib);
-      return result;
-}*/
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getBool
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Z
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT void JNICALL Java_onyxplatform_test_NativeGetFn_getBool
-  (JNIEnv *env, jobject inst, jobject m, jstring key) {
-      /*const char *k = (*env)->GetStringUTFChars(env, key, 0);
-      OnyxLib olib = onyxlib_new(env, inst);
-      jboolean result = onyxlib_getbool(olib, m, k);
-      (*env)->ReleaseStringUTFChars(env, key, k);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getBool
+  (JNIEnv *env, jobject inst, jobject m) {
+      const char *k1 = "bool";
+      const char *k2 = "bool1";
+      OnyxLib olib = onyxlib_new(env);
+      bool b = onyxlib_getbool(olib, m, k1);
+      jobject r = onyxlib_assocbool(olib, m, k2, b);
       onyxlib_free(olib);
-      return result;
-}*/
+      return r;
+}
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getStr
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Ljava/lang/String;
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT jstring JNICALL Java_onyxplatform_test_NativeGetFn_getStr
-  (JNIEnv *env, jobject inst, jobject m, jstring key) {
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
-      OnyxLib olib = onyxlib_new(env, inst);
-      jstring jstr = onyxlib_getstr(olib, m, k);
-      (*env)->ReleaseStringUTFChars(env, key, k);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getStr
+  (JNIEnv *env, jobject inst, jobject m) {
+      const char *k1 = "str";
+      const char *k2 = "str1";
+      OnyxLib olib = onyxlib_new(env);
+      jstring js = onyxlib_getstr(olib, m, k1);
+      const char *s = (*env)->GetStringUTFChars(env, js, 0);
+      jobject r = onyxlib_assocstr(olib, m, k2, s);
+      (*env)->ReleaseStringUTFChars(env, js, s);
       onyxlib_free(olib);
-      return jstr;
-}*/
+      return r;
+}

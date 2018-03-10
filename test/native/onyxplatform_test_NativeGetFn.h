@@ -10,58 +10,50 @@ extern "C" {
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getObj
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
 JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getObj
-  (JNIEnv *, jobject, jobject, jstring);
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getInt
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)I
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jint JNICALL Java_onyxplatform_test_NativeGetFn_getInt
-  (JNIEnv *, jobject, jobject, jstring);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getInt
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getFloat
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)F
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jfloat JNICALL Java_onyxplatform_test_NativeGetFn_getFloat
-  (JNIEnv *, jobject, jobject, jstring);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getFloat
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getDouble
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)D
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jdouble JNICALL Java_onyxplatform_test_NativeGetFn_getDouble
-  (JNIEnv *, jobject, jobject, jstring);
-
-/*
- * Class:     onyxplatform_test_NativeGetFn
- * Method:    getLong
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)J
- */
-JNIEXPORT jlong JNICALL Java_onyxplatform_test_NativeGetFn_getLong
-  (JNIEnv *, jobject, jobject, jstring);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getDouble
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getBool
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Z
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jboolean JNICALL Java_onyxplatform_test_NativeGetFn_getBool
-  (JNIEnv *, jobject, jobject, jstring);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getBool
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     onyxplatform_test_NativeGetFn
  * Method:    getStr
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Ljava/lang/String;
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-JNIEXPORT jstring JNICALL Java_onyxplatform_test_NativeGetFn_getStr
-  (JNIEnv *, jobject, jobject, jstring);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeGetFn_getStr
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

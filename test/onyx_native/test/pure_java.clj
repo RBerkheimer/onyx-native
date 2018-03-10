@@ -64,19 +64,29 @@
     (is (= expected outputs))))
 
 
-(comment (deftest get-map-test
+(deftest get-map-test
   (let [testObject (NativeSingleJavaTest.
                      "onyx-env.edn"
                      NativeSingleJavaTest/GET_FN "OnyxNativeTest")
         inputs [{:object {}
                  :int (int 1)
                  :float (float 1.1)
-                 :double (double 2.0)
-                 :long (long 3.3)
+                 :double (double 2.2)
                  :bool true
                  :str "TEST"}]
-        expected {:out [{:passed true} :done]}
+         expected {:out [{:object {}
+                          :object1 {}
+                          :int 1
+                          :int1 1
+                          :float (float 1.1)
+                          :float1 (float 1.1)
+                          :double (double 2.2)
+                          :double1 (double 2.2)
+                          :bool true
+                          :bool1 true
+                          :str "TEST"
+                          :str1 "TEST"} :done]}
         outputs (.runJobCollectOutputs testObject inputs)]
     (println "get-map-test> outputs=" outputs)
     (.shutdown testObject)
-    (is (= expected outputs)))))
+    (is (= expected outputs))))
