@@ -25,9 +25,14 @@ jobs:
     steps:
       - checkout
 
+    - run:
+        name: update package manager
+        command: sudo apt-get update
+
+
       - run:
           name: get ubuntu deps
-          command: sudo apt-get update install build-essential
+          command: sudo apt-get install build-essential
 
       # Download and cache dependencies
       - restore_cache:
