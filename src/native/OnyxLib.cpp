@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-using namespace std;
 #include <jni.h>
 #include "OnyxLib.h"
 #include "OnyxNative.hpp"

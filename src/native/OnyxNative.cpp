@@ -1,8 +1,6 @@
 #include "OnyxNative.h"
 #include <iostream>
 #include <string>
-using namespace std;
-
 #include <jni.h>
 
 
@@ -16,7 +14,7 @@ void OnyxNative::init(){}
 
 void OnyxNative::checkAndThrow(std::string msg) {
 	if (m_env->ExceptionCheck()) {
-		cout << "OnyxNative::checkAndThrow> msg=" << msg << endl;
+		std::cout << "OnyxNative::checkAndThrow> msg=" << msg << std::endl;
 	   	jclass Exception = m_env->FindClass("java/lang/Exception");
 	   	m_env->ThrowNew(Exception,msg.c_str());
 	}
