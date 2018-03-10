@@ -1,25 +1,23 @@
-# onyx-native - Affordances for native code in Onyx workflows
+# Onyx Native - C Bindings and Utilities for Onyx Java
 
 ## Overview
 
-The onyx-native package was designed to support the use of stateful,
-native-backed Java objects in an [Onyx Platform](http://onyxplatform.org) workflow.
+Onyx Native was designed to support the use of native code, such as C, C++, and Fortran, in Onyx Java. Onyx Java provides Java bindings to Onyx, allowing [Onyx](http://www.onyxplatform.org) to process Java. So, through Onyx Java, users of Onyx Native can take advantage of having their code run in Onyx.
 
 ## Build Status
 
 CircleCI Tests:  [![CircleCI](https://circleci.com/gh/RBerkheimer/onyx-native.svg?style=svg)](https://circleci.com/gh/RBerkheimer/onyx-native)
 
+OnyxNative is currently supported for Onyx 0.9.15 with plans to migrate to the .12 series of Onyx in the near future.
+
 ## Architectural Approach
 
-Onyx-native builds on the features of [onyx-java](https://github.com/rberkheimer/onyx-java) that provide support for the use of stateful Java instances in a workflow.<br>
+Onyx-native builds on the features of [onyx-java](https://github.com/rberkheimer/onyx-java) that provide support for the use of stateful Java instances in a workflow.
 <br>
-This packages provides a simple and non-invasive matching set of Java and C
-interfaces that leverage Java's JNI and C++ to enable bootstrapping
-and memory management of native code in an Onyx workflow. <br>
 <br>
-This allows for the inclusion of native code in a way that requires few changes
-and that is a natural fit to an information-flow-based workflow
-system that is purely functional.<br>
+This packages provides two extensions to the Onyx Java BindUtils - allowing native tasks to be added to Onyx Java jobs by specifying a user DLL.
+It also provides a standardized makefile to help users easily make cross-platform (OSX and UNIX flavor) DLLs that include the OnyxNative utils lib for IPersistentMap manipulation, called OnyxLib.
+<br>
 <br>
 
 ### Using Java Instances
@@ -30,16 +28,16 @@ Onyx-java provides affordances for inclusion of Java instances in a workflow via
 ```
 import org.onyxplatform.api.java.instance.BindUtils;
 
-Catalog catalog = new Catalog();
+Job job = new Job();
 
 String taskName = "pass";
-String fullyQualifiedName = "onyxplatform.test.PassFn";
-IPersistentMap ctrArgs = MapFns.emptyMap();
+String fullyQualifiedJavaClass = "onyxplatform.test.PassFn";
+IPersistentMap constructorArgs = MapFns.emptyMap();
 
-int batchSize = 5;
-int batchTimeout = 50;
+int batchSize = 5; //batchSize specifies how many data segments to process together for this task
+int batchTimeout = 50; //batchTimeout specifies how long onyx should wait on a hanging set of data segments before retrying
 
-BindUtils.addFn(catalog, batchSize, batchTimeout, fullyQualifiedName, ctrArgs);
+BindUtils.addFn(job, batchSize, batchTimeout, fullyQualifiedJavaClass, constructorArgs);
 ```
 <br>
 Which loads a pure Java class derived from *OnyxFn*
@@ -65,13 +63,15 @@ public class PassFn extends OnyxFn {
 
 ### Using Native-Backed Instances
 
-Onyx-native provides additional support for native-backed instances using a parallel set of utility functions and native-specific versions of the core API and runtime utility class *OnyxEnv*
-The following sections demonstrate use of the native-specific features along with the interfaces and utilities at each level of abstraction.<br>
+Onyx-native provides additional support for native-backed instances by providing an extension BindUtils method (just specify the user DLL name in addition to the job instance, batch info, java class and constructor args). This will load the native library when the task is ready to run. Since the native library is idempotent at load, it stays loaded for use by any other tasks that may need to use it in the job.
+The following sections demonstrate use of the native-specific features along with the interfaces and utilities at each level of abstraction.
+<br>
 <br>
 
 #### Basic Usage
 
-Onyx-native parallels onyx-java's approach offering additional native affordances to access runtime VM resources along with utilities (Both C++ and C) to directly manipulate Clojure maps in JNI functions.<br>
+Onyx-native parallels onyx-java's approach offering additional native affordances to access runtime VM resources along with C/C++ utilities to directly manipulate Clojure maps in JNI functions.
+<br>
 <br>
 
 #### Java
@@ -79,33 +79,33 @@ Onyx-native parallels onyx-java's approach offering additional native affordance
 Onyx-native follows the same approach that onyx-java does (shown above) with additions to
 specife the library along with initialization arguments. These are used along with native-specific
 versions of the core API *NAPI* and *NativeOnyxEnv* to load and bootstrap your
-native-backed instance at runtime.<br>
+native-backed instance at runtime.
 
+<br>
 <br>
 As before, you use *NativeBindUtils* to generate a catalog entry:<br>
 <br>
 
 ```
-  Catalog c = job.getCatalog();
-  NativeBindUtils.addFn(c, "pass", batchSize(), batchTimeout(),
-                        className, MapFns.emptyMap(), "SomeLibrary", MapFns.emptyMap());
+  Job j = new Job();
+  NativeBindUtils.addFn(job, "pass", batchSize(), batchTimeout(),
+                        fullyQualifiedJavaClassName, JavaClassConstructorArgs, "SomeLibrary");
 ```
 <br>
-You then provide a concrete subclass of *NativeOnyxFn* which provides an addtional static
-function which bootstraps the backing library and intializes native resources:
+
+The java class wraps your native code and includes the native function call -
 
 ```
 public class DissocFn extends NativeOnyxFn {
 
- protected native IPersistentMap dissoc(IPersistentMap m, String key);
+ protected native IPersistentMap dissoc(IPersistentMap m);
 
  public Object consumeSegment(IPersistentMap m) {
-   return dissoc(m, "test-key");
+   return dissoc(m);
  }
 ```
-Note that *NativeOnyxFn* only provides the means for easy use of native calls and an
-assurence of runtime consistency. Your concrete subclass is not forced to use any native methods
-when over-riding *consumeSegment*
+
+Note that all provided OnyxNative utilities in C/C++ work with immutable IPersistentMaps. The simplest use of this library would be to always pass only an IPersistentMap to the native function and return an IPersistentMap. Do all native manipulation inside native code. This ensures instance isolation.
 
 #### Native
 
@@ -140,27 +140,23 @@ Implementation
 ```
 #include <jni.h>
 
-#include "OnyxNative.h"
+#include "OnyxLib.h"
 #include "onyxplatform_test_DissocFn.h"
 
 JNIEXPORT jobject JNICALL Java_onyxplatform_test_DissocFn_dissoc
-  (JNIEnv *env, jobject inst, jobject m, jstring key)
-{
-  const char *k = (*env)->GetStringUTFChars(env, key, 0);
-  jobject result = onyx_dissoc(m, k);
-  (*env)->ReleaseStringUTFChars(env, key, k);
-  return result;
+  (JNIEnv *env, jobject inst, jobject m) {
+    const char* dissocKey = "dissoc";
+    OnyxLib onyxlib = new OnyxLib(env);
+    jobject result = onyxlib_dissoc(onyxlib, m, dissocKey);
+    return result;
 }
 
 ```
 
 ### Interop Utilities
 
-The *OnyxNative* support class provides both C and C++ accessors which make Clojure IPersistentMap
-manipulation straightforward. It also provides access to a global back-pointer to the VM runtime,
-the jclass object for the peer class as well as functions that encapsulate common setup for
-JNI objects like jmethodID's making the creation of from-native callbacks straightfoward for functionality
-like logging, etc.<br>
+OnyxLib is a native library written in C/C++ that allows easy manipulation of IPersistentMaps. Also, inside every user method called by Java, the user has access to their task instance. So the user can pass an IPersistentMap containing all of their task segment data, and also make calls against the task instance itself (to get things like task-wide properties or make log calls).
+<br>
 <br>
 
 #### VM
@@ -172,49 +168,41 @@ this functionality:
 ##### C++
 
 ```
-JNIEnv* getEnv();
-jclass  getCurrentClass();
-jclass  getClass(std::string className);
-jmethodID getMethod(std::string clazz, std::string name, std::string decl);
-jstring toJavaString(std::string s);
+JNIEnv* getEnv(); //holds the held JNIEnv pointer
+jclass  getClass(const char* fullyQualifiedClassName);
+jmethodID getMethod(const char* clazz, const char* name, const char* decl, bool isStatic);
+jstring toJavaString(const char* s); //turns a const char* into a jstring
 ```
 
 ##### C
 
 ```
-JNIEXPORT JNIEnv* onyx_getJNIEnv();
-JNIEXPORT jclass  onyx_getClass(const char* pFqClassName);
-JNIEXPORT jclass  onyx_getCurrentClass();
-JNIEXPORT jmethodID onyx_getMethod(const char* clazz, const char* name, const char* decl);
+JNIEXPORT JNIEnv* onyxlib_getJNIEnv(OnyxLib olib);
+JNIEXPORT jclass  onyxlib_getClass(OnyxLib olib, const char* pFqClassName);
+JNIEXPORT jmethodID onyx_getMethod(OnyxLib olib, const char* clazz, const char* name, const char* decl, bool isStatic);
 ```
 
 #### Map
 
-Manipulation of Clojure maps' is at the heart of Onyx's processing approach. While this can be
-avoided by native interface design, the provided set of map manipulation functions lower the
-barrier to entry of their use in native code.<br>
 <br>
-Native type conversion affordances reduce the boilerplate necessary when using basic native types,
-but due to variable arity handling across the Native/VM boundry they are restricted to the
-basic set of manipulation functions:
+
+The following methods are provided as part of the OnyxNative OnyxLib in C/C++:
 
 ##### C++
 
 ```
 jobject emptyMap();
-jobject merge(jobject a, jobject b);
+jobject mergeMap(jobject a, jobject b);
 
 jobject         getObj(jobject ipmap, std::string key);
 int             getInt(jobject ipmap, std::string key);
-long            getLong(jobject ipmap, std::string key);
 float           getFloat(jobject ipmap, std::string key);
 double          getDouble(jobject ipmap, std::string key);
 bool            getBool(jobject ipmap, std::string key);
-std::string     getStr(jobject ipmap, std::string key);
+jstring         getStr(jobject ipmap, std::string key);
 
 jobject assocObj(jobject ipmap, std::string key, jobject value);
 jobject assocInt(jobject ipmap, std::string key, int value);
-jobject assocLong(jobject ipmap, std::string key, long value);
 jobject assocFloat(jobject ipmap, std::string key, float value);
 jobject assocDouble(jobject ipmap, std::string key, double value);
 jobject assocBool(jobject ipmap, std::string key, bool value);
@@ -226,38 +214,26 @@ jobject dissoc(jobject ipmap, std::string key);
 ##### C
 
 ```
-JNIEXPORT jobject       onyx_emptyMap();
-JNIEXPORT jobject       onyx_merge(jobject a, jobject b);
 
-JNIEXPORT jobject       onyx_getObj(jobject ipmap, const char* key);
-JNIEXPORT int           onyx_getInt(jobject ipmap, const char* key);
-JNIEXPORT long          onyx_getLong(jobject ipmap, const char* key);
-JNIEXPORT float         onyx_getFloat(jobject ipmap, const char* key);
-JNIEXPORT double        onyx_getDouble(jobject ipmap, const char* key);
-JNIEXPORT bool          onyx_getBool(jobject ipmap, const char* key);
-JNIEXPORT const char*   onyx_getStr(jobject ipmap, const char* key);
+jobject       onyxlib_emptyMap(OnyxLib olib);
+jobject       onyxlib_mergemaps(OnyxLib olib, jobject a, jobject b);
 
-JNIEXPORT jobject       onyx_assocObj(jobject ipmap, const char* key, jobject value);
-JNIEXPORT jobject       onyx_assocInt(jobject ipmap, const char* key, int value);
-JNIEXPORT jobject       onyx_assocLong(jobject ipmap, const char* key, long value);
-JNIEXPORT jobject       onyx_assocFloat(jobject ipmap, const char* key, float value);
-JNIEXPORT jobject       onyx_assocDouble(jobject ipmap, const char* key, double value);
-JNIEXPORT jobject       onyx_assocBool(jobject ipmap, const char* key, bool value);
-JNIEXPORT jobject       onyx_assocStr(jobject ipmap, const char* key, std::string value);
+jobject       onyxlib_getObj(OnyxLib olib, jobject ipmap, const char* key);
+int           onyxlib_getInt(OnyxLib olib, jobject ipmap, const char* key);
+float         onyxlib_getFloat(OnyxLib olib, jobject ipmap, const char* key);
+double        onyxlib_getDouble(OnyxLib olib, jobject ipmap, const char* key);
+bool          onyxlib_getBool(OnyxLib olib, jobject ipmap, const char* key);
+jstring       onyxlib_getStr(OnyxLib olib, jobject ipmap, const char* key);
 
-JNIEXPORT jobject       onyx_dissoc(jobject ipmap, const char*);
+jobject       onyxlib_assocObj(OnyxLib olib, jobject ipmap, const char* key, jobject value);
+jobject       onyxlib_assocInt(OnyxLib olib, jobject ipmap, const char* key, int value);
+jobject       onyxlib_assocLong(OnyxLib olib, jobject ipmap, const char* key, long value);
+jobject       onyxlib_assocFloat(OnyxLib olib, jobject ipmap, const char* key, float value);
+jobject       onyxlib_assocDouble(OnyxLib olib, jobject ipmap, const char* key, double value);
+jobject       onyxlib_assocBool(OnyxLib olib, jobject ipmap, const char* key, bool value);
+jobject       onyxlib_assocStr(OnyxLib olib, jobject ipmap, const char* key, std::string value);
+jobject       onyxlib_dissoc(OnyxLib olib, jobject ipmap, const char*);
 ```
 
-
-### Memory Management Notes
-
-Memory management is primarily driven via the affordance offered by the *loadNativeResources*
-method of *NativeOnyxFn* which calls the C function releaseNative(). The underlying
-ClassLoader that was used to load the library is also de-referenced once the release functions
-are called.<br>
 <br>
-
-#### The Custom ClassLoader
-Java libraries can only be unloaded when the class in which loadLibrary is called is no longer reachable. Typical uses of the System's findClass static function ensures that the class is always referenced.<br>
 <br>
-The *Loader* class currently defaults to loading all classes via the current *Thread* context's clssloader. The implementation which caches classes results in a problem casting classes later so its currently commented out.
