@@ -58,16 +58,15 @@ public class NativeBindUtils extends BindUtils implements OnyxNames, NativeNames
 	 * @param  fqClassName   a string naming the fully qualified user class to use in object instance creation
 	 * @param  ctrArgs       an IPersistentMap containing arguments to use in the user class constructor
 	 * @param  libName   	a string naming the library to be loaded
-	 * @param  initArgs       an IPersistentMap containing arguments to use when initializing the native library
 	 * @return                returns the updated catalog which includes the added task
 	 */
 
 	public static void addFn(Job job, String taskName, int batchSize, int batchTimeout,
 				                String fqClassName, IPersistentMap ctrArgs,
-				                String libName, IPersistentMap initArgs) {
+				                String libName) {
         IPersistentMap rawTaskMap = (IPersistentMap) makeCatalogEntry.invoke(taskName, batchSize, batchTimeout,
                                                                             fqClassName, ctrArgs,
-                                                                            libName, initArgs);
+                                                                            libName);
         OnyxMap taskMap = MapFns.toOnyxMap(rawTaskMap);
         Task task = new Task(taskMap);
         job.getCatalog().addTask(task);
@@ -93,15 +92,14 @@ public class NativeBindUtils extends BindUtils implements OnyxNames, NativeNames
      * @param  fqCtrClassName       a string naming the fully qualified constructor class used by the user class
      * @param  ctrArgs       an IPersistentMap containing arguments to use in the user class constructor
      * @param  libName   	a string naming the library to be loaded
-     * @param  initArgs       an IPersistentMap containing arguments to use when initializing the native library
      * @return                returns the updated catalog which includes the added task
      */
     public static void addFn(Job job, String taskName, int batchSize, int batchTimeout,
                              String fqClassName, String ctrClassName, IPersistentMap ctrArgs,
-                             String libName, IPersistentMap initArgs) {
+                             String libName) {
          IPersistentMap rawTaskMap = (IPersistentMap) makeCatalogEntry.invoke(taskName, batchSize, batchTimeout,
                                                                              fqClassName, ctrClassName, ctrArgs,
-                                                                             libName, initArgs);
+                                                                             libName);
          OnyxMap taskMap = MapFns.toOnyxMap(rawTaskMap);
          Task task = new Task(taskMap);
          job.getCatalog().addTask(task);

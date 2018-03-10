@@ -46,7 +46,6 @@ public class NativeSingleJavaTest extends NativeJobBuilder {
      */
 	public void configureCatalog() {
 		NativeBindUtils.addFn(this.job, "pass", batchSize(), batchTimeout(),
-				      this.className, MapFns.emptyMap(),
-				      this.libName, 	 MapFns.emptyMap());
+				      this.className, MapFns.emptyMap(), this.libName);
 	}
 }

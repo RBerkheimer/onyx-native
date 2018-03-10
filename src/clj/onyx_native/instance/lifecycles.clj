@@ -11,8 +11,7 @@
           class-factory (jlcs/make-user-factory user-class user-ctr)
           instance (class-factory ctr-args)
           instance-key (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))
-          native-lib (str (:native/lib-name (:onyx.core/task-map event)))
-          native-args (:native/init-args (:onyx.core/task-map event))]
+          native-lib (str (:native/lib-name (:onyx.core/task-map event)))]
             (if-not (native-lib/is-lib-loaded native-lib)
                 (native-lib/load-lib instance native-lib)
                 (println "native lib already loaded!"))
@@ -25,8 +24,7 @@
           class-factory (jlcs/make-basic-factory user-class)
           instance (class-factory ctr-args)
           instance-key (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))
-          native-lib (str (:native/lib-name (:onyx.core/task-map event)))
-          native-args (:native/init-args (:onyx.core/task-map event))]
+          native-lib (str (:native/lib-name (:onyx.core/task-map event)))]
             (if-not (native-lib/is-lib-loaded native-lib)
                 (native-lib/load-lib instance native-lib)
                 (println "native lib already loaded!"))
