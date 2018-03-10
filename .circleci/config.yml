@@ -21,16 +21,13 @@ jobs:
       # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
 
-      dependencies:
-          pre:
-              - sudo apt-get install autoconf-archive automake-1.14 autoconf2.59 build-essential check
 
     steps:
       - checkout
 
       - run:
           name: get ubuntu deps
-          command: sudo apt-get install autoconf-archive automake-1.14 autoconf2.59 build-essential check
+          command: sudo apt-get install build-essential
 
       # Download and cache dependencies
       - restore_cache:
