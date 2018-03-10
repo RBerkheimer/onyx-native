@@ -52,6 +52,18 @@
     (.shutdown testObject)
     (is (= expected outputs))))
 
+(deftest dissoc-map-test
+  (let [testObject (NativeSingleJavaTest.
+                     "onyx-env.edn"
+                     NativeSingleJavaTest/DISSOC_FN "OnyxNativeTest")
+        inputs [{:dissoc "DISSOC"}]
+        expected {:out [{} :done]}
+        outputs (.runJobCollectOutputs testObject inputs) ]
+    (println "dissoc-map-test> outputs=" outputs)
+    (.shutdown testObject)
+    (is (= expected outputs))))
+
+
 (comment (deftest get-map-test
   (let [testObject (NativeSingleJavaTest.
                      "onyx-env.edn"
@@ -66,15 +78,5 @@
         expected {:out [{:passed true} :done]}
         outputs (.runJobCollectOutputs testObject inputs)]
     (println "get-map-test> outputs=" outputs)
-    (.shutdown testObject)
-    (is (= expected outputs))))
-
-(deftest dissoc-map-test
-  (let [testObject (NativeSingleJavaTest.
-                     "onyx-env.edn"
-                     NativeSingleJavaTest/DISSOC_FN "OnyxNativeTest")
-        inputs [{:dissoc "DISSOC"}]
-        expected {:out [{} :done]}
-        outputs (.runJobCollectOutputs testObject inputs) ]
     (.shutdown testObject)
     (is (= expected outputs)))))

@@ -10,6 +10,7 @@ void    onyxlib_free(OnyxLib);
 
 jobject onyxlib_emptymap(OnyxLib);
 jobject onyxlib_mergemaps(OnyxLib, jobject, jobject);
+jobject onyxlib_dissoc(OnyxLib, jobject, const char*);
 jobject onyxlib_assocobj(OnyxLib, jobject, const char*, jobject);
 jobject onyxlib_assocint(OnyxLib, jobject, const char*, int);
 jobject onyxlib_assocfloat(OnyxLib, jobject, const char*, float);

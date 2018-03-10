@@ -20,7 +20,7 @@ public class NativeDissocFn extends NativeOnyxFn {
 	* @param key The keyword to remove from the map
 	* @return The map with the keyword dissoc'ed
 	 */
-	protected native IPersistentMap dissoc(IPersistentMap m, String key);
+	protected native IPersistentMap dissoc(IPersistentMap m);
 
 	/**
 	 * Consumes a map with a single key-value pair
@@ -29,6 +29,6 @@ public class NativeDissocFn extends NativeOnyxFn {
 	 * @return an empty map
 	 */
 	public Object consumeSegment(IPersistentMap m) {
-		return dissoc(m, "dissoc");
+		return dissoc(m);
 	}
 }

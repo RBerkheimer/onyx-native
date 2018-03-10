@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     onyxplatform_test_NativeDissocFn
  * Method:    dissoc
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
 JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeDissocFn_dissoc
-  (JNIEnv *, jobject, jobject, jstring);
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

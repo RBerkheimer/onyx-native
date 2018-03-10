@@ -4,7 +4,7 @@
 #include "onyxplatform_test_NativeEmptyFn.h"
 #include "onyxplatform_test_NativeMergeFn.h"
 #include "onyxplatform_test_NativeAssocFn.h"
-//#include "onyxplatform_test_NativeDissocFn.h"
+#include "onyxplatform_test_NativeDissocFn.h"
 //#include "onyxplatform_test_NativeGetFn.h"
 
 /*
@@ -47,17 +47,16 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeMergeFn_merge
 /*
  * Class:     onyxplatform_test_NativeDissocFn
  * Method:    dissoc
- * Signature: (Lclojure/lang/IPersistentMap;Ljava/lang/String;)Lclojure/lang/IPersistentMap;
+ * Signature: (Lclojure/lang/IPersistentMap;)Lclojure/lang/IPersistentMap;
  */
-/*JNIEXPORT void JNICALL Java_onyxplatform_test_NativeDissocFn_dissoc
-  (JNIEnv *env, jobject inst, jobject m, jstring key) {
-      OnyxLib olib = onyxlib_new(env, inst);
-      const char *k = (*env)->GetStringUTFChars(env, key, 0);
+JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeDissocFn_dissoc
+  (JNIEnv *env, jobject inst, jobject m) {
+      const char *k = "dissoc";
+      OnyxLib olib = onyxlib_new(env);
       jobject result = onyxlib_dissoc(olib, m, k);
-      (*env)->ReleaseStringUTFChars(env, key, k);
       onyxlib_free(olib);
       return result;
-}*/
+}
 
 
 /** NativeAssocFn ---------------------------------------- */

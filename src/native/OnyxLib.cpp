@@ -24,6 +24,10 @@ extern "C"
         return onyxlib->mergeMaps(map1, map2);
     }
 
+    jobject onyxlib_dissoc(OnyxLib onyx_lib, jobject map, const char* key) {
+        return onyx_lib->dissoc(map, key);
+    }
+
     jobject onyxlib_assocobj(OnyxLib onyxlib, jobject jmap, const char* key, jobject jobj) {
         return onyxlib->assocObj(jmap, key, jobj);
     }
@@ -112,11 +116,6 @@ extern "C"
     jstring onyxlib_getstr(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
         std::string k = jkey;
         return onyx_lib->getStr(jmap, k);
-    }
-
-    jobject onyxlib_dissoc(OnyxLib onyx_lib, jobject jmap, const char* jkey) {
-        std::string k = jkey;
-        return onyx_lib->dissoc(jmap, k);
     }
 
 }
