@@ -27,7 +27,7 @@ jobs:
 
       - run:
           name: get ubuntu deps
-          command: sudo apt-get install build-essential
+          command: sudo apt-get update install build-essential
 
       # Download and cache dependencies
       - restore_cache:
