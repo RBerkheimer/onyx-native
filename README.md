@@ -7,18 +7,18 @@ native-backed Java objects in an [Onyx Platform](http://onyxplatform.org) workfl
 
 ## Build Status
 
-CircleCI Tests:  [![CircleCI](https://circleci.com/gh/MissInterpret/onyx-native.svg?style=svg)](https://circleci.com/gh/MissInterpret/onyx-native)
+CircleCI Tests:  [![CircleCI](https://circleci.com/gh/RBerkheimer/onyx-native.svg?style=svg)](https://circleci.com/gh/RBerkheimer/onyx-native)
 
 ## Architectural Approach
 
-Onyx-native builds on the features of [onyx-java](https://github.com/onyx-platform/onyx-java) that provide support for the use of stateful Java instances in a workflow.<br>
+Onyx-native builds on the features of [onyx-java](https://github.com/rberkheimer/onyx-java) that provide support for the use of stateful Java instances in a workflow.<br>
 <br>
-This packages provides a simple and non-invasive matching set of Java and C 
-interfaces that leverage Java's JNI and C++ to enable bootstrapping 
+This packages provides a simple and non-invasive matching set of Java and C
+interfaces that leverage Java's JNI and C++ to enable bootstrapping
 and memory management of native code in an Onyx workflow. <br>
 <br>
-This allows for the inclusion of native code in a way that requires few changes 
-and that is a natural fit to an information-flow-based workflow 
+This allows for the inclusion of native code in a way that requires few changes
+and that is a natural fit to an information-flow-based workflow
 system that is purely functional.<br>
 <br>
 
@@ -76,9 +76,9 @@ Onyx-native parallels onyx-java's approach offering additional native affordance
 
 #### Java
 
-Onyx-native follows the same approach that onyx-java does (shown above) with additions to 
-specife the library along with initialization arguments. These are used along with native-specific 
-versions of the core API *NAPI* and *NativeOnyxEnv* to load and bootstrap your 
+Onyx-native follows the same approach that onyx-java does (shown above) with additions to
+specife the library along with initialization arguments. These are used along with native-specific
+versions of the core API *NAPI* and *NativeOnyxEnv* to load and bootstrap your
 native-backed instance at runtime.<br>
 
 <br>
@@ -88,10 +88,10 @@ As before, you use *NativeBindUtils* to generate a catalog entry:<br>
 ```
   Catalog c = job.getCatalog();
   NativeBindUtils.addFn(c, "pass", batchSize(), batchTimeout(),
-                        className, MapFns.emptyMap(), "SomeLibrary", MapFns.emptyMap()); 
+                        className, MapFns.emptyMap(), "SomeLibrary", MapFns.emptyMap());
 ```
 <br>
-You then provide a concrete subclass of *NativeOnyxFn* which provides an addtional static 
+You then provide a concrete subclass of *NativeOnyxFn* which provides an addtional static
 function which bootstraps the backing library and intializes native resources:
 
 ```
@@ -103,8 +103,8 @@ public class DissocFn extends NativeOnyxFn {
    return dissoc(m, "test-key");
  }
 ```
-Note that *NativeOnyxFn* only provides the means for easy use of native calls and an 
-assurence of runtime consistency. Your concrete subclass is not forced to use any native methods 
+Note that *NativeOnyxFn* only provides the means for easy use of native calls and an
+assurence of runtime consistency. Your concrete subclass is not forced to use any native methods
 when over-riding *consumeSegment*
 
 #### Native
@@ -163,10 +163,10 @@ JNI objects like jmethodID's making the creation of from-native callbacks straig
 like logging, etc.<br>
 <br>
 
-#### VM 
+#### VM
 
-Using JNI functions require some combination of parameters that include a jclass, and often a jmethodID. 
-Obtaining them from fully-qualified class name requires stereotyped boilerplate. These functions wrap 
+Using JNI functions require some combination of parameters that include a jclass, and often a jmethodID.
+Obtaining them from fully-qualified class name requires stereotyped boilerplate. These functions wrap
 this functionality:
 
 ##### C++
@@ -188,14 +188,14 @@ JNIEXPORT jclass  onyx_getCurrentClass();
 JNIEXPORT jmethodID onyx_getMethod(const char* clazz, const char* name, const char* decl);
 ```
 
-#### Map 
+#### Map
 
-Manipulation of Clojure maps' is at the heart of Onyx's processing approach. While this can be 
+Manipulation of Clojure maps' is at the heart of Onyx's processing approach. While this can be
 avoided by native interface design, the provided set of map manipulation functions lower the
 barrier to entry of their use in native code.<br>
 <br>
-Native type conversion affordances reduce the boilerplate necessary when using basic native types, 
-but due to variable arity handling across the Native/VM boundry they are restricted to the 
+Native type conversion affordances reduce the boilerplate necessary when using basic native types,
+but due to variable arity handling across the Native/VM boundry they are restricted to the
 basic set of manipulation functions:
 
 ##### C++
@@ -249,11 +249,11 @@ JNIEXPORT jobject       onyx_dissoc(jobject ipmap, const char*);
 ```
 
 
-### Memory Management Notes 
+### Memory Management Notes
 
-Memory management is primarily driven via the affordance offered by the *loadNativeResources* 
-method of *NativeOnyxFn* which calls the C function releaseNative(). The underlying 
-ClassLoader that was used to load the library is also de-referenced once the release functions 
+Memory management is primarily driven via the affordance offered by the *loadNativeResources*
+method of *NativeOnyxFn* which calls the C function releaseNative(). The underlying
+ClassLoader that was used to load the library is also de-referenced once the release functions
 are called.<br>
 <br>
 
