@@ -14,12 +14,6 @@ import org.onyxplatform.api.java.API;
  */
 public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
 
-	protected static String libraryName;
-	protected static boolean libLoaded = false;
-	protected static IPersistentMap initArgs;
-
-	protected static native IPersistentMap initNative(Object inst, IPersistentMap m);
-
 
 	public NativeOnyxFn(IPersistentMap m) {
 		super(m);
@@ -34,15 +28,9 @@ public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
  	* @param  args The arguments to use during loading
  	* @return      The loading response map
  	*/
-	public void loadNativeResources(String libName, IPersistentMap args)
+	public void loadNativeResources(String libName)
 		throws java.lang.UnsatisfiedLinkError {
-		if (!libLoaded) {
-			libraryName = libName;
 			System.loadLibrary(libName);
-			//initArgs = initNative(this, args);
-			libLoaded = true;
-            System.out.println("Lib loaded!");
 		}
-	}
 
 }
