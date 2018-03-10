@@ -177,9 +177,9 @@ jstring toJavaString(const char* s); //turns a const char* into a jstring
 ##### C
 
 ```
-JNIEXPORT JNIEnv* onyxlib_getJNIEnv(OnyxLib olib);
-JNIEXPORT jclass  onyxlib_getClass(OnyxLib olib, const char* pFqClassName);
-JNIEXPORT jmethodID onyx_getMethod(OnyxLib olib, const char* clazz, const char* name, const char* decl, bool isStatic);
+JNIEnv* onyxlib_getJNIEnv(OnyxLib olib);
+jclass  onyxlib_getClass(OnyxLib olib, const char* pFqClassName);
+jmethodID onyx_getMethod(OnyxLib olib, const char* clazz, const char* name, const char* decl, bool isStatic);
 ```
 
 #### Map
