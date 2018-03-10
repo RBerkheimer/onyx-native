@@ -52,7 +52,7 @@ jobject OnyxNative::mergeMaps(jobject map1, jobject map2) {
     return updatedMap;
 }
 
-jobject OnyxNative::assocObj(const char* key, jobject jmap, jobject jobj) {
+jobject OnyxNative::assocObj(jobject jmap, const char* key, jobject jobj) {
     jstring objKey = m_env->NewStringUTF(key);
     jclass mc = m_env->FindClass("org/onyxplatform/api/java/utils/MapFns");
     jmethodID m_mapAssocId = getMethod(mc, "assoc", "(Lclojure/lang/IPersistentMap;Ljava/lang/String;Ljava/lang/Object;)Lclojure/lang/IPersistentMap;", true);
@@ -60,7 +60,7 @@ jobject OnyxNative::assocObj(const char* key, jobject jmap, jobject jobj) {
     return updatedMap;
 }
 
-jobject OnyxNative::assocInt(const char* key, jobject jmap, int i) {
+jobject OnyxNative::assocInt(jobject jmap, const char* key, int i) {
     jstring intKey = m_env->NewStringUTF(key);
 
     jclass intClass = getClass("java/lang/Integer");
@@ -73,7 +73,7 @@ jobject OnyxNative::assocInt(const char* key, jobject jmap, int i) {
     return updatedMap;
 }
 
-jobject OnyxNative::assocFloat(const char* key, jobject jmap, float f) {
+jobject OnyxNative::assocFloat(jobject jmap, const char* key, float f) {
     jstring floatKey = m_env->NewStringUTF(key);
 
     jclass floatClass = getClass("java/lang/Float");
@@ -86,7 +86,7 @@ jobject OnyxNative::assocFloat(const char* key, jobject jmap, float f) {
     return updatedMap;
 }
 
-jobject OnyxNative::assocDouble(const char* key, jobject jmap, double d) {
+jobject OnyxNative::assocDouble(jobject jmap, const char* key, double d) {
     jstring doubleKey = m_env->NewStringUTF(key);
 
     jclass doubleClass = getClass("java/lang/Double");
@@ -100,7 +100,7 @@ jobject OnyxNative::assocDouble(const char* key, jobject jmap, double d) {
 }
 
 
-jobject OnyxNative::assocBool(const char* key, jobject jmap, bool b) {
+jobject OnyxNative::assocBool(jobject jmap, const char* key, bool b) {
     jstring boolKey = m_env->NewStringUTF(key);
 
     jclass boolClass = getClass("java/lang/Boolean");
@@ -114,7 +114,7 @@ jobject OnyxNative::assocBool(const char* key, jobject jmap, bool b) {
 }
 
 
-jobject OnyxNative::assocStr(const char* key, jobject jmap, const char* s) {
+jobject OnyxNative::assocStr(jobject jmap, const char* key, const char* s) {
     jstring strKey = m_env->NewStringUTF(key);
 
 	jobject strObject = m_env->NewStringUTF(s);

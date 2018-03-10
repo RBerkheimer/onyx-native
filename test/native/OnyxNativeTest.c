@@ -32,12 +32,12 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeMergeFn_merge
       jobject emptymap1 = onyxlib_emptymap(olib);
       const char *k1 = "map1";
       int v1 = 1;
-      jobject map1 = onyxlib_assocint(olib, k1, emptymap1, v1);
+      jobject map1 = onyxlib_assocint(olib, emptymap1, k1, v1);
 
       jobject emptymap2 = onyxlib_emptymap(olib);
       const char *k2 = "map2";
       const char *v2 = "TEST";
-      jobject map2 = onyxlib_assocstr(olib, k2, emptymap2, v2);
+      jobject map2 = onyxlib_assocstr(olib, emptymap2, k2, v2);
 
       jobject r = onyxlib_mergemaps(olib, map1, map2);
       onyxlib_free(olib);
@@ -70,10 +70,9 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeMergeFn_merge
 JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocObj
   (JNIEnv *env, jobject inst, jobject m) {
       const char *k = "object";
-      printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
       jobject emptyMap = onyxlib_emptymap(olib);
-      jobject r = onyxlib_assocobj(olib, k, m, emptyMap);
+      jobject r = onyxlib_assocobj(olib, m, k, emptyMap);
       onyxlib_free(olib);
       return r;
 }
@@ -87,9 +86,8 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocInt
   (JNIEnv *env, jobject inst, jobject m) {
       const char *k = "int";
       int i = 1;
-      printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_assocint(olib, k, m, i);
+      jobject r = onyxlib_assocint(olib, m, k, i);
       onyxlib_free(olib);
       return r;
 }
@@ -103,9 +101,8 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocFloat
   (JNIEnv *env, jobject inst, jobject m) {
       const char *k = "float";
       float f = 1.1;
-      printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_assocfloat(olib, k, m, f);
+      jobject r = onyxlib_assocfloat(olib, m, k, f);
       onyxlib_free(olib);
       return r;
 }
@@ -119,9 +116,8 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocDouble
   (JNIEnv *env, jobject inst, jobject m) {
       const char *k = "double";
       double d = 2.2;
-      printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_assocdouble(olib, k, m, d);
+      jobject r = onyxlib_assocdouble(olib, m, k, d);
       onyxlib_free(olib);
       return r;
 }
@@ -136,9 +132,8 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocBool
   (JNIEnv *env, jobject inst, jobject m) {
       const char *k = "bool";
       bool b = true;
-      printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_assocbool(olib, k, m, b);
+      jobject r = onyxlib_assocbool(olib, m, k, b);
       onyxlib_free(olib);
       return r;
 }
@@ -152,9 +147,8 @@ JNIEXPORT jobject JNICALL Java_onyxplatform_test_NativeAssocFn_assocStr
   (JNIEnv *env, jobject inst, jobject m) {
       const char *k = "str";
       const char *s = "TEST";
-      printf("%s!\n", k);
       OnyxLib olib = onyxlib_new(env);
-      jobject r = onyxlib_assocstr(olib, k, m, s);
+      jobject r = onyxlib_assocstr(olib, m, k, s);
       onyxlib_free(olib);
       return r;
 }

@@ -10,12 +10,12 @@ void    onyxlib_free(OnyxLib);
 
 jobject onyxlib_emptymap(OnyxLib);
 jobject onyxlib_mergemaps(OnyxLib, jobject, jobject);
-jobject onyxlib_assocobj(OnyxLib, const char*, jobject, jobject);
-jobject onyxlib_assocint(OnyxLib, const char*, jobject, int);
-jobject onyxlib_assocfloat(OnyxLib, const char*, jobject, float);
-jobject onyxlib_assocdouble(OnyxLib, const char*, jobject, double);
-jobject onyxlib_assocbool(OnyxLib, const char*, jobject, bool);
-jobject onyxlib_assocstr(OnyxLib, const char*, jobject, const char*);
+jobject onyxlib_assocobj(OnyxLib, jobject, const char*, jobject);
+jobject onyxlib_assocint(OnyxLib, jobject, const char*, int);
+jobject onyxlib_assocfloat(OnyxLib, jobject, const char*, float);
+jobject onyxlib_assocdouble(OnyxLib, jobject, const char*, double);
+jobject onyxlib_assocbool(OnyxLib, jobject, const char*, bool);
+jobject onyxlib_assocstr(OnyxLib, jobject, const char*, const char*);
 
 void    onyxlib_errorcheck(OnyxLib, const char*);
 JNIEnv* onyxlib_getenv(OnyxLib);

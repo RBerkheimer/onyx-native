@@ -24,28 +24,28 @@ extern "C"
         return onyxlib->mergeMaps(map1, map2);
     }
 
-    jobject onyxlib_assocobj(OnyxLib onyxlib, const char* key, jobject jmap, jobject jobj) {
-        return onyxlib->assocObj(key, jmap, jobj);
+    jobject onyxlib_assocobj(OnyxLib onyxlib, jobject jmap, const char* key, jobject jobj) {
+        return onyxlib->assocObj(jmap, key, jobj);
     }
 
-    jobject onyxlib_assocint(OnyxLib onyxlib, const char* key, jobject jmap, int i) {
-        return onyxlib->assocInt(key, jmap, i);
+    jobject onyxlib_assocint(OnyxLib onyxlib, jobject jmap, const char* key, int i) {
+        return onyxlib->assocInt(jmap, key, i);
     }
 
-    jobject onyxlib_assocfloat(OnyxLib onyxlib, const char* key, jobject jmap, float f) {
-        return onyxlib->assocFloat(key, jmap, f);
+    jobject onyxlib_assocfloat(OnyxLib onyxlib, jobject jmap, const char* key, float f) {
+        return onyxlib->assocFloat(jmap, key, f);
     }
 
-    jobject onyxlib_assocdouble(OnyxLib onyxlib, const char* key, jobject jmap, double d) {
-        return onyxlib->assocDouble(key, jmap, d);
+    jobject onyxlib_assocdouble(OnyxLib onyxlib, jobject jmap, const char* key, double d) {
+        return onyxlib->assocDouble(jmap, key, d);
     }
 
-    jobject onyxlib_assocbool(OnyxLib onyxlib, const char* key, jobject jmap, bool b) {
-        return onyxlib->assocBool(key, jmap, b);
+    jobject onyxlib_assocbool(OnyxLib onyxlib, jobject jmap,const char* key, bool b) {
+        return onyxlib->assocBool(jmap, key, b);
     }
 
-    jobject onyxlib_assocstr(OnyxLib onyxlib, const char* key, jobject jmap, const char* s) {
-        return onyxlib->assocStr(key, jmap, s);
+    jobject onyxlib_assocstr(OnyxLib onyxlib, jobject jmap, const char* key, const char* s) {
+        return onyxlib->assocStr(jmap, key, s);
     }
 
 
