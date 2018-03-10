@@ -21,7 +21,7 @@ JAVAHCLASSES:= onyxplatform.test.NativeAssocFn onyxplatform.test.NativeDissocFn 
 #USER SPECIFIED
 #The following var should contain a list of JARS or other dirs/containers holding sources or their dependencies,
 #separated by ':', used in generating java headers for native interop for classes listed in JAVACLASSES
-JAVAHPATH=$(PROJECTPATH)/dependencies/clojure-1.8.0.jar:$(PROJECTPATH)/dependencies/onyx-java-0.1.6.jar:$(PROJECTPATH)/src/java/:$(PROJECTPATH)/test/java/
+JAVAHPATH=$(PROJECTPATH)/dependencies/clojure-1.8.0.jar:$(PROJECTPATH)/dependencies/onyx-java-0.1.7.jar:$(PROJECTPATH)/src/java/:$(PROJECTPATH)/test/java/
 
 #USER SPECIFIED
 #The following vars should contain strings representing the C, Fortran, and CPP libraries that glue the fortran code to java code.
@@ -68,11 +68,11 @@ TARGETPATH="$(PROJECTPATH)/test/native/"
 #The following is the target library for the native jni library.
 ifeq ($(UNAME), Linux)
 #The following represents a standard RHEL 7 system.
-LNFLAGS=-dynamiclib -shared -lgfortran -I$(JVMHEADERS)
+LNFLAGS=-dynamiclib -shared -I$(JVMHEADERS)
 endif
 ifeq ($(UNAME), Darwin)
 #The following represents a standard OSX system.
-LNFLAGS=-dynamiclib -shared -lgfortran -I$(JVMHEADERS) -framework JavaVM
+LNFLAGS=-dynamiclib -shared -I$(JVMHEADERS) -framework JavaVM
 endif
 
 CFLAGS=-I$(JVMHEADERS) -I$(COMMONCPPPATH) -I$(COMMONCPATH) -I$(USERCPPPATH) -I$(USERCPATH) -I$(JNIDIR) -I$(JNIMDDIR) -fpic
