@@ -8,8 +8,10 @@
     (let [user-class (str (:java-instance/class (:onyx.core/task-map event)))
           user-ctr (str (:java-instance/ctr (:onyx.core/task-map event)))
           ctr-args (:java-instance/args (:onyx.core/task-map event))
+          ctr-factory (jlcs/make-user-factory user-ctr "clojure.lang.IPersistentMap")
+          ctr-instance (ctr-factory ctr-args)
           class-factory (jlcs/make-user-factory user-class user-ctr)
-          instance (class-factory ctr-args)
+          instance (class-factory ctr-instance)
           instance-key (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))
           native-lib (str (:native/lib-name (:onyx.core/task-map event)))]
             (if-not (native-lib/is-lib-loaded native-lib)
