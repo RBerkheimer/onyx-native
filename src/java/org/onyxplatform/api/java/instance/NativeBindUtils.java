@@ -13,6 +13,7 @@ import org.onyxplatform.api.java.Job;
 import org.onyxplatform.api.java.Lifecycle;
 
 import org.onyxplatform.api.java.instance.INativeFn;
+import org.onyxplatform.api.java.instance.IOnyxFnConstructor;
 
 import org.onyxplatform.api.java.utils.MapFns;
 
@@ -95,7 +96,7 @@ public class NativeBindUtils extends BindUtils implements OnyxNames, NativeNames
      * @return                returns the updated catalog which includes the added task
      */
     public static void addFn(Job job, String taskName, int batchSize, int batchTimeout,
-                             String fqClassName, String ctrClassName, IPersistentMap ctrArgs,
+                             String fqClassName, String ctrClassName, IOnyxFnConstructor ctrArgs,
                              String libName) {
          IPersistentMap rawTaskMap = (IPersistentMap) makeCatalogEntry.invoke(taskName, batchSize, batchTimeout,
                                                                              fqClassName, ctrClassName, ctrArgs,
