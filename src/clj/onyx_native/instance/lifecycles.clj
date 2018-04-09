@@ -16,7 +16,7 @@
           native-lib (str (:native/lib-name (:onyx.core/task-map event)))]
             (if-not (native-lib/is-lib-loaded native-lib)
                 (native-lib/load-lib instance native-lib)
-                (println "native lib already loaded!"))
+                (println "Nativelib already loaded."))
             (swap! jlcs/instances assoc instance-key instance)
             {}))
 
@@ -29,7 +29,7 @@
           native-lib (str (:native/lib-name (:onyx.core/task-map event)))]
             (if-not (native-lib/is-lib-loaded native-lib)
                 (native-lib/load-lib instance native-lib)
-                (println "native lib already loaded!"))
+                (println "Nativelib already loaded."))
             (swap! jlcs/instances assoc instance-key instance)
             {}))
 
@@ -37,6 +37,7 @@
     (let [instance-key (jlcs/keyname (:java-instance/id (:onyx.core/task-map event)))
           instance (get @jlcs/instances instance-key)
           user-class (str (:java-instance/class (:onyx.core/task-map event)))]
+          (native-lib/unload-lib instance)
           (swap! jlcs/instances dissoc instance-key)
           {}))
 

@@ -5,6 +5,9 @@
 (defn load-lib [instance lib-name]
     (.loadNativeResources instance lib-name))
 
+(defn unload-lib [instance]
+    (.unloadNativeResources instance))
+
 (defn get-loaded-libs []
   (-> (doto (.getDeclaredField ClassLoader "loadedLibraryNames")
       (.setAccessible true))

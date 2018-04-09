@@ -33,4 +33,8 @@ public abstract class NativeOnyxFn extends OnyxFn implements INativeFn {
 			System.loadLibrary(libName);
 		}
 
+    public void unloadNativeResources() {
+        System.out.println("Unloading native resources.");
+    }
+
 }
